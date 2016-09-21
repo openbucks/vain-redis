@@ -11,6 +11,7 @@
 
 namespace Vain\Redis\CRedis\Factory;
 
+use Vain\Connection\Exception\NoRequiredFieldException;
 use Vain\Connection\Factory\AbstractConnectionFactory;
 
 /**
@@ -24,13 +25,15 @@ class CRedisConnectionFactory extends AbstractConnectionFactory
      * @param array $config
      *
      * @return array
+     *
+     * @throws NoRequiredFieldException
      */
     protected function getCredentials(array $config) : array
     {
         $requiredFields = ['host', 'port', 'db'];
         foreach ($requiredFields as $requiredField) {
             if (false === array_key_exists($requiredField, $config)) {
-
+                throw new NoRequiredFieldException($this, $requiredField);
             }
         }
 
@@ -53,7 +56,7 @@ class CRedisConnectionFactory extends AbstractConnectionFactory
         $redis = new \Redis();
         $redis->connect($host, $port);
         if ('' !== $password) {
-            $redis->auth($config['password']);
+            $redis->auth($password);
         }
         $redis->select($db);
 
