@@ -16,9 +16,9 @@
     },
     "require": {
         "php": ">=7.0",
-        "vain/cache": "^0.1",
-        "vain/core": "^0.1",
-        "vain/database": "^0.1"
+        "vain/cache": "^0.3",
+        "vain/core": "^0.3",
+        "vain/database": "^0.3"
     },
     "repositories": [
         {
