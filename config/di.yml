@@ -20,3 +20,5 @@ services:
   connection.factory.credis:
     class: Vain\Redis\CRedis\Factory\CRedisConnectionFactory
     arguments: ['credis']
+    tags:
+      - {name: connection.factory}
