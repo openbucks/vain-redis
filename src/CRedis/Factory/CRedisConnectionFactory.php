@@ -24,6 +24,26 @@ class CRedisConnectionFactory extends AbstractConnectionFactory
     /**
      * @param array $config
      *
+     * @return string
+     */
+    protected function getPassword(array $config) : string
+    {
+        if (false === array_key_exists('password', $config)) {
+            return '';
+        }
+
+        $password = $config['password'];
+
+        if (false === array_key_exists('algo', $config)) {
+            return $password;
+        }
+
+        return hash($config['algo'], $password);
+    }
+
+    /**
+     * @param array $config
+     *
      * @return array
      *
      * @throws NoRequiredFieldException
@@ -37,13 +57,7 @@ class CRedisConnectionFactory extends AbstractConnectionFactory
             }
         }
 
-        if (false === array_key_exists('password', $config)) {
-            $password = '';
-        } else {
-            $password = $config['password'];
-        }
-
-        return [$config['host'], (int)$config['port'], (int)$config['db'], $password];
+        return [$config['host'], (int)$config['port'], (int)$config['db'], $this->getPassword($config)];
     }
 
     /**
