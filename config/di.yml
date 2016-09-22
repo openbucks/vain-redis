@@ -1,0 +1,24 @@
+parameters:
+  redis.database: 'redis'
+
+services:
+  database.redis:
+    class: Vain\Redis\RedisInterface
+    factory: ['@database.storage', getDatabase]
+    arguments:
+      - '%redis.database%'
+  database.factory.credis:
+    class: Vain\Redis\CRedis\Factory\CRedisDatabaseFactory
+    arguments: ['credis']
+    tags:
+      - {name: database.factory}
+  cache.factory.credis:
+    class: Vain\Redis\CRedis\Factory\CRedisCacheFactory
+    arguments: ['credis']
+    tags:
+      - {name: cache.factory}
+  connection.factory.credis:
+    class: Vain\Redis\CRedis\Factory\CRedisConnectionFactory
+    arguments: ['credis']
+    tags:
+      - {name: connection.factory}
