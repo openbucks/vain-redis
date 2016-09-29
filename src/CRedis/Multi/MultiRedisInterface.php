@@ -107,7 +107,6 @@ interface MultiRedisInterface
      */
     public function zRank(string $key, string $member) : MultiRedisInterface;
 
-
     /**
      * @param string $key
      * @param string $member
@@ -212,7 +211,12 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRevRangeByScore(string $key, int $fromScore, int $toScore, array $options = []) : MultiRedisInterface;
+    public function zRevRangeByScore(
+        string $key,
+        int $fromScore,
+        int $toScore,
+        array $options = []
+    ) : MultiRedisInterface;
 
     /**
      * @param string $key
@@ -223,7 +227,13 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRevRangeByScoreLimit(string $key, int $fromScore, int $toScore, int $offset, int $count) : MultiRedisInterface;
+    public function zRevRangeByScoreLimit(
+        string $key,
+        int $fromScore,
+        int $toScore,
+        int $offset,
+        int $count
+    ) : MultiRedisInterface;
 
     /**
      * @param string $key
@@ -283,7 +293,7 @@ interface MultiRedisInterface
 
     /**
      * @param string $key
-     * @param mixed $member
+     * @param mixed  $member
      *
      * @return MultiRedisInterface
      */
@@ -514,7 +524,7 @@ interface MultiRedisInterface
 
     /**
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return MultiRedisInterface
      */
@@ -610,6 +620,15 @@ interface MultiRedisInterface
      * @return MultiRedisInterface
      */
     public function flush() : MultiRedisInterface;
+
+    /**
+     * @param string $query
+     * @param array  $bindParams
+     * @param array  $bindTypes
+     *
+     * @return MultiRedisInterface
+     */
+    public function runQuery($query, array $bindParams, array $bindTypes = []) : MultiRedisInterface;
 
     /**
      * @return MultiRedisInterface

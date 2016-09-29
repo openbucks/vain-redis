@@ -9,17 +9,17 @@
  * @link      https://github.com/allflame/vain-redis
  */
 
-namespace Vain\Redis\CRedis\Factory;
+namespace Vain\Redis\Connection;
 
+use Vain\Connection\AbstractConnection;
 use Vain\Connection\Exception\NoRequiredFieldException;
-use Vain\Connection\Factory\AbstractConnectionFactory;
 
 /**
- * Class CRedisConnectionFactory
+ * Class CRedisConnection
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class CRedisConnectionFactory extends AbstractConnectionFactory
+class CRedisConnection extends AbstractConnection
 {
     /**
      * @param array $config
@@ -63,9 +63,9 @@ class CRedisConnectionFactory extends AbstractConnectionFactory
     /**
      * @inheritDoc
      */
-    public function createConnection(array $config)
+    public function doConnect(array $configData)
     {
-        list ($host, $port, $db, $password) = $this->getCredentials($config);
+        list ($host, $port, $db, $password) = $this->getCredentials($configData);
 
         $redis = new \Redis();
         $redis->connect($host, $port);
@@ -73,7 +73,10 @@ class CRedisConnectionFactory extends AbstractConnectionFactory
             $redis->auth($password);
         }
         $redis->select($db);
-        $redis->setOption(\Redis::OPT_SERIALIZER, defined('Redis::SERIALIZER_IGBINARY') ? \Redis::SERIALIZER_IGBINARY : \Redis::SERIALIZER_PHP);
+        $redis->setOption(
+            \Redis::OPT_SERIALIZER,
+            defined('Redis::SERIALIZER_IGBINARY') ? \Redis::SERIALIZER_IGBINARY : \Redis::SERIALIZER_PHP
+        );
 
         return $redis;
     }

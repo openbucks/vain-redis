@@ -9,9 +9,12 @@
  * @link      https://github.com/allflame/vain-redis
  */
 
-namespace Vain\Redis\CRedis\Factory;
+namespace Vain\Redis\Cache\Factory;
 
+use Vain\Cache\CacheInterface;
 use Vain\Cache\Factory\AbstractCacheFactory;
+use Vain\Connection\ConnectionInterface;
+use Vain\Redis\Connection\CRedisConnection;
 use Vain\Redis\CRedis\CRedis;
 
 /**
@@ -24,8 +27,11 @@ class CRedisCacheFactory extends AbstractCacheFactory
     /**
      * @inheritDoc
      */
-    public function createCache(array $configData, $connection)
+    public function createCache(array $configData, ConnectionInterface $connection) : CacheInterface
     {
+        /**
+         * @var CRedisConnection $connection
+         */
         return new CRedis($connection);
     }
 }

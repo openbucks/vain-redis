@@ -157,7 +157,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
      */
     public function zAddMod(string $key, string $mode, int $score, $value) : MultiRedisInterface
     {
-        throw new BadMethodRedisException($this, __METHOD__);
+        return $this;
 
 //        $zAddCommand = sprintf(
 //            'return redis.call(\'zAdd\', \'%s\', \'%s\', \'%d\', \'%s\')',
@@ -843,6 +843,14 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     {
         $this->cRedisInstance->info();
 
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function runQuery($query, array $bindParams, array $bindTypes = []) : MultiRedisInterface
+    {
         return $this;
     }
 }

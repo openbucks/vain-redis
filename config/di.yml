@@ -8,17 +8,17 @@ services:
     arguments:
       - '%redis.database%'
   database.factory.credis:
-    class: Vain\Redis\CRedis\Factory\CRedisDatabaseFactory
+    class: Vain\Redis\Database\Factory\CRedisDatabaseFactory
     arguments: ['credis']
     tags:
       - {name: database.factory}
   cache.factory.credis:
-    class: Vain\Redis\CRedis\Factory\CRedisCacheFactory
+    class: Vain\Redis\Cache\Factory\CRedisCacheFactory
     arguments: ['credis']
     tags:
       - {name: cache.factory}
   connection.factory.credis:
-    class: Vain\Redis\CRedis\Factory\CRedisConnectionFactory
+    class: Vain\Redis\Connection\Factory\CRedisConnectionFactory
     arguments: ['credis']
     tags:
       - {name: connection.factory}

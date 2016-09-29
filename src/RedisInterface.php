@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace Vain\Redis;
 
 use Vain\Cache\CacheInterface;
+use Vain\Database\DatabaseInterface;
 use Vain\Redis\CRedis\Multi\MultiRedisInterface;
 
 /**
@@ -20,7 +21,7 @@ use Vain\Redis\CRedis\Multi\MultiRedisInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface RedisInterface extends CacheInterface
+interface RedisInterface extends CacheInterface, DatabaseInterface
 {
     const POSITIVE_INFINITY = '+inf';
     const NEGATIVE_INFINITY = '-inf';

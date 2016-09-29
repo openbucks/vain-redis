@@ -12,6 +12,8 @@ declare(strict_types = 1);
 
 namespace Vain\Redis\CRedis;
 
+use Vain\Database\Generator\GeneratorInterface;
+use Vain\Redis\Connection\CRedisConnection;
 use Vain\Redis\Exception\BadMethodRedisException;
 use Vain\Redis\Exception\DirectExecRedisException;
 use Vain\Redis\CRedis\Multi\MultiRedisInterface;
@@ -26,16 +28,16 @@ use Vain\Redis\RedisInterface;
  */
 class CRedis implements RedisInterface
 {
-    private $cRedisInstance;
+    private $cRedisConnection;
 
     /**
      * CRedis constructor.
      *
-     * @param \Redis $cRedisInstance
+     * @param CRedisConnection $cRedisConnection
      */
-    public function __construct(\Redis $cRedisInstance)
+    public function __construct(CRedisConnection $cRedisConnection)
     {
-        $this->cRedisInstance = $cRedisInstance;
+        $this->cRedisConnection = $cRedisConnection;
     }
 
     /**
@@ -43,7 +45,7 @@ class CRedis implements RedisInterface
      */
     public function set(string $key, $value, int $ttl) : bool
     {
-        return $this->cRedisInstance->set($key, $value, $ttl);
+        return $this->cRedisConnection->establish()->set($key, $value, $ttl);
     }
 
     /**
@@ -51,7 +53,7 @@ class CRedis implements RedisInterface
      */
     public function get(string $key)
     {
-        if (false === ($result = $this->cRedisInstance->get($key))) {
+        if (false === ($result = $this->cRedisConnection->establish()->get($key))) {
             return null;
         }
 
@@ -63,7 +65,7 @@ class CRedis implements RedisInterface
      */
     public function del(string $key) : bool
     {
-        return (1 === $this->cRedisInstance->del($key));
+        return (1 === $this->cRedisConnection->establish()->del($key));
     }
 
     /**
@@ -71,7 +73,7 @@ class CRedis implements RedisInterface
      */
     public function has(string $key) : bool
     {
-        return $this->cRedisInstance->exists($key);
+        return $this->cRedisConnection->establish()->exists($key);
     }
 
     /**
@@ -79,7 +81,7 @@ class CRedis implements RedisInterface
      */
     public function ttl(string $key) : int
     {
-        if (false === ($result = $this->cRedisInstance->ttl($key))) {
+        if (false === ($result = $this->cRedisConnection->establish()->ttl($key))) {
             return 0;
         }
 
@@ -91,7 +93,7 @@ class CRedis implements RedisInterface
      */
     public function expire(string $key, int $ttl) : bool
     {
-        return $this->cRedisInstance->expire($key, $ttl);
+        return $this->cRedisConnection->establish()->expire($key, $ttl);
     }
 
     /**
@@ -99,7 +101,7 @@ class CRedis implements RedisInterface
      */
     public function pSet(string $key, $value) : bool
     {
-        return $this->cRedisInstance->set($key, $value);
+        return $this->cRedisConnection->establish()->set($key, $value);
     }
 
     /**
@@ -139,7 +141,7 @@ class CRedis implements RedisInterface
      */
     public function zAdd(string $key, int $score, $value) : bool
     {
-        return (1 === $this->cRedisInstance->zAdd($key, $score, $value));
+        return (1 === $this->cRedisConnection->establish()->zAdd($key, $score, $value));
     }
 
     /**
@@ -147,7 +149,7 @@ class CRedis implements RedisInterface
      */
     public function zDelete(string $key, string $member) : bool
     {
-        return (1 === $this->cRedisInstance->zDelete($key, $member));
+        return (1 === $this->cRedisConnection->establish()->zDelete($key, $member));
     }
 
     /**
@@ -163,7 +165,7 @@ class CRedis implements RedisInterface
      */
     public function zRemRangeByScore(string $key, int $fromScore, int $toScore) : int
     {
-        return $this->cRedisInstance->zRemRangeByScore($key, $fromScore, $toScore);
+        return $this->cRedisConnection->establish()->zRemRangeByScore($key, $fromScore, $toScore);
     }
 
     /**
@@ -171,7 +173,7 @@ class CRedis implements RedisInterface
      */
     public function zRemRangeByRank(string $key, int $start, int $stop) : int
     {
-        return $this->cRedisInstance->zRemRangeByRank($key, $start, $stop);
+        return $this->cRedisConnection->establish()->zRemRangeByRank($key, $start, $stop);
     }
 
     /**
@@ -189,7 +191,7 @@ class CRedis implements RedisInterface
             $cRedisOptions[self::ZRANGE_LIMIT][] = $options[self::ZRANGE_LIMIT];
         }
 
-        return $this->cRedisInstance->zRevRangeByScore($key, $fromScore, $toScore, $cRedisOptions);
+        return $this->cRedisConnection->establish()->zRevRangeByScore($key, $fromScore, $toScore, $cRedisOptions);
     }
 
     /**
@@ -225,7 +227,7 @@ class CRedis implements RedisInterface
             $cRedisOptions[self::ZRANGE_LIMIT][] = $options[self::ZRANGE_LIMIT];
         }
 
-        return $this->cRedisInstance->zRangeByScore($key, $fromScore, $toScore, $cRedisOptions);
+        return $this->cRedisConnection->establish()->zRangeByScore($key, $fromScore, $toScore, $cRedisOptions);
     }
 
     /**
@@ -233,7 +235,7 @@ class CRedis implements RedisInterface
      */
     public function zCard(string $key) : int
     {
-        return $this->cRedisInstance->zCard($key);
+        return $this->cRedisConnection->establish()->zCard($key);
     }
 
     /**
@@ -241,7 +243,7 @@ class CRedis implements RedisInterface
      */
     public function zRank(string $key, string $member) : int
     {
-        return $this->cRedisInstance->zRank($key, $member);
+        return $this->cRedisConnection->establish()->zRank($key, $member);
     }
 
     /**
@@ -249,7 +251,7 @@ class CRedis implements RedisInterface
      */
     public function zRevRank(string $key, string $member) : int
     {
-        return $this->cRedisInstance->zRevRank($key, $member);
+        return $this->cRedisConnection->establish()->zRevRank($key, $member);
     }
 
     /**
@@ -257,7 +259,7 @@ class CRedis implements RedisInterface
      */
     public function zCount(string $key, int $fromScore, int $toScore) : int
     {
-        return $this->cRedisInstance->zCount($key, $fromScore, $toScore);
+        return $this->cRedisConnection->establish()->zCount($key, $fromScore, $toScore);
     }
 
     /**
@@ -265,7 +267,7 @@ class CRedis implements RedisInterface
      */
     public function zIncrBy(string $key, float $score, string $member) : float
     {
-        return $this->cRedisInstance->zIncrBy($key, $score, $member);
+        return $this->cRedisConnection->establish()->zIncrBy($key, $score, $member);
     }
 
     /**
@@ -273,7 +275,7 @@ class CRedis implements RedisInterface
      */
     public function zScore(string $key, string $member) : float
     {
-        return $this->cRedisInstance->zScore($key, $member);
+        return $this->cRedisConnection->establish()->zScore($key, $member);
     }
 
     /**
@@ -281,7 +283,7 @@ class CRedis implements RedisInterface
      */
     public function zRange(string $key, int $from, int $to) : array
     {
-        return $this->cRedisInstance->zRange($key, $from, $to);
+        return $this->cRedisConnection->establish()->zRange($key, $from, $to);
     }
 
     /**
@@ -289,7 +291,7 @@ class CRedis implements RedisInterface
      */
     public function zRevRange(string $key, int $from, int $to) : array
     {
-        return $this->cRedisInstance->zRevRange($key, $from, $to);
+        return $this->cRedisConnection->establish()->zRevRange($key, $from, $to);
     }
 
     /**
@@ -297,7 +299,7 @@ class CRedis implements RedisInterface
      */
     public function zRevRangeWithScores(string $key, int $from, int $to) : array
     {
-        return $this->cRedisInstance->zRevRange($key, $from, $to, true);
+        return $this->cRedisConnection->establish()->zRevRange($key, $from, $to, true);
     }
 
     /**
@@ -305,7 +307,7 @@ class CRedis implements RedisInterface
      */
     public function sAdd(string $key, string $member) : bool
     {
-        return (1 === $this->cRedisInstance->sAdd($key, $member));
+        return (1 === $this->cRedisConnection->establish()->sAdd($key, $member));
     }
 
     /**
@@ -313,7 +315,7 @@ class CRedis implements RedisInterface
      */
     public function sCard(string $key) : int
     {
-        return $this->cRedisInstance->sCard($key);
+        return $this->cRedisConnection->establish()->sCard($key);
     }
 
     /**
@@ -321,7 +323,7 @@ class CRedis implements RedisInterface
      */
     public function sDiff(string $key1, string $key2) : array
     {
-        return $this->cRedisInstance->sDiff($key1, $key2);
+        return $this->cRedisConnection->establish()->sDiff($key1, $key2);
     }
 
     /**
@@ -329,7 +331,7 @@ class CRedis implements RedisInterface
      */
     public function sInter(string $key1, string $key2) : array
     {
-        return $this->cRedisInstance->sInter($key1, $key2);
+        return $this->cRedisConnection->establish()->sInter($key1, $key2);
     }
 
     /**
@@ -337,7 +339,7 @@ class CRedis implements RedisInterface
      */
     public function sIsMember(string $key, string $member) : bool
     {
-        return $this->cRedisInstance->sIsMember($key, $member);
+        return $this->cRedisConnection->establish()->sIsMember($key, $member);
     }
 
     /**
@@ -345,7 +347,7 @@ class CRedis implements RedisInterface
      */
     public function sMembers(string $key) : array
     {
-        return $this->cRedisInstance->sMembers($key);
+        return $this->cRedisConnection->establish()->sMembers($key);
     }
 
     /**
@@ -353,7 +355,7 @@ class CRedis implements RedisInterface
      */
     public function sRem(string $key, string $member) : bool
     {
-        return (1 === $this->cRedisInstance->sRem($key, $member));
+        return (1 === $this->cRedisConnection->establish()->sRem($key, $member));
     }
 
     /**
@@ -361,7 +363,7 @@ class CRedis implements RedisInterface
      */
     public function append(string $key, string $value) : bool
     {
-        return (0 < $this->cRedisInstance->append($key, $value));
+        return (0 < $this->cRedisConnection->establish()->append($key, $value));
     }
 
     /**
@@ -369,7 +371,7 @@ class CRedis implements RedisInterface
      */
     public function decr(string $key) : int
     {
-        return $this->cRedisInstance->decr($key);
+        return $this->cRedisConnection->establish()->decr($key);
     }
 
     /**
@@ -377,7 +379,7 @@ class CRedis implements RedisInterface
      */
     public function decrBy(string $key, int $value) : int
     {
-        return $this->cRedisInstance->decrBy($key, $value);
+        return $this->cRedisConnection->establish()->decrBy($key, $value);
     }
 
     /**
@@ -385,7 +387,7 @@ class CRedis implements RedisInterface
      */
     public function getRange(string $key, int $from, int $to) : array
     {
-        return $this->cRedisInstance->getRange($key, $from, $to);
+        return $this->cRedisConnection->establish()->getRange($key, $from, $to);
     }
 
     /**
@@ -393,7 +395,7 @@ class CRedis implements RedisInterface
      */
     public function incr(string $key) : int
     {
-        return $this->cRedisInstance->incr($key);
+        return $this->cRedisConnection->establish()->incr($key);
     }
 
     /**
@@ -401,7 +403,7 @@ class CRedis implements RedisInterface
      */
     public function incrBy(string $key, int $value) : int
     {
-        return $this->cRedisInstance->incrBy($key, $value);
+        return $this->cRedisConnection->establish()->incrBy($key, $value);
     }
 
     /**
@@ -409,7 +411,7 @@ class CRedis implements RedisInterface
      */
     public function mGet(array $keys) : array
     {
-        return $this->cRedisInstance->mget($keys);
+        return $this->cRedisConnection->establish()->mget($keys);
     }
 
     /**
@@ -417,7 +419,7 @@ class CRedis implements RedisInterface
      */
     public function mSet(array $keysAndValues) : bool
     {
-        return $this->cRedisInstance->mset($keysAndValues);
+        return $this->cRedisConnection->establish()->mset($keysAndValues);
     }
 
     /**
@@ -425,7 +427,7 @@ class CRedis implements RedisInterface
      */
     public function setEx(string $key, $value, int $ttl) : bool
     {
-        return $this->cRedisInstance->setex($key, $value, $ttl);
+        return $this->cRedisConnection->establish()->setex($key, $value, $ttl);
     }
 
     /**
@@ -433,7 +435,7 @@ class CRedis implements RedisInterface
      */
     public function setNx(string $key, $value) : bool
     {
-        return $this->cRedisInstance->setnx($key, $value);
+        return $this->cRedisConnection->establish()->setnx($key, $value);
     }
 
     /**
@@ -441,9 +443,9 @@ class CRedis implements RedisInterface
      */
     public function pipeline() : MultiRedisInterface
     {
-        $this->cRedisInstance->multi(\Redis::PIPELINE);
+        $this->cRedisConnection->establish()->multi(\Redis::PIPELINE);
 
-        return new PipelineRedis($this->cRedisInstance);
+        return new PipelineRedis($this->cRedisConnection->establish());
     }
 
     /**
@@ -451,9 +453,9 @@ class CRedis implements RedisInterface
      */
     public function multi() : MultiRedisInterface
     {
-        $this->cRedisInstance->multi(\Redis::MULTI);
+        $this->cRedisConnection->establish()->multi(\Redis::MULTI);
 
-        return new TransactionRedis($this->cRedisInstance);
+        return new TransactionRedis($this->cRedisConnection->establish());
     }
 
     /**
@@ -469,7 +471,7 @@ class CRedis implements RedisInterface
      */
     public function rename(string $oldName, string $newName) : bool
     {
-        return $this->cRedisInstance->rename($oldName, $newName);
+        return $this->cRedisConnection->establish()->rename($oldName, $newName);
     }
 
     /**
@@ -477,7 +479,7 @@ class CRedis implements RedisInterface
      */
     public function hDel(string $key, string $field) : bool
     {
-        return (1 === $this->cRedisInstance->hDel($key, $field));
+        return (1 === $this->cRedisConnection->establish()->hDel($key, $field));
     }
 
     /**
@@ -485,7 +487,7 @@ class CRedis implements RedisInterface
      */
     public function hGet(string $key, string $field)
     {
-        return $this->cRedisInstance->hGet($key, $field);
+        return $this->cRedisConnection->establish()->hGet($key, $field);
     }
 
     /**
@@ -493,7 +495,7 @@ class CRedis implements RedisInterface
      */
     public function hGetAll(string $key) : array
     {
-        return $this->cRedisInstance->hGetAll($key);
+        return $this->cRedisConnection->establish()->hGetAll($key);
     }
 
     /**
@@ -501,7 +503,7 @@ class CRedis implements RedisInterface
      */
     public function hSetAll(string $key, array $keysAndValues) : bool
     {
-        return $this->cRedisInstance->hMset($key, $keysAndValues);
+        return $this->cRedisConnection->establish()->hMset($key, $keysAndValues);
     }
 
     /**
@@ -509,7 +511,7 @@ class CRedis implements RedisInterface
      */
     public function hSet(string $key, string $field, $value) : bool
     {
-        return (1 === $this->cRedisInstance->hSet($key, $field, $value));
+        return (1 === $this->cRedisConnection->establish()->hSet($key, $field, $value));
     }
 
     /**
@@ -517,7 +519,7 @@ class CRedis implements RedisInterface
      */
     public function hSetNx(string $key, string $field, $value) : bool
     {
-        return $this->cRedisInstance->hSetNx($key, $field, $value);
+        return $this->cRedisConnection->establish()->hSetNx($key, $field, $value);
     }
 
     /**
@@ -525,7 +527,7 @@ class CRedis implements RedisInterface
      */
     public function hExists(string $key, string $field) : bool
     {
-        return $this->cRedisInstance->hExists($key, $field);
+        return $this->cRedisConnection->establish()->hExists($key, $field);
     }
 
     /**
@@ -533,7 +535,7 @@ class CRedis implements RedisInterface
      */
     public function hIncrBy(string $key, string $field, int $value) : int
     {
-        return $this->cRedisInstance->hIncrBy($key, $field, $value);
+        return $this->cRedisConnection->establish()->hIncrBy($key, $field, $value);
     }
 
     /**
@@ -541,7 +543,7 @@ class CRedis implements RedisInterface
      */
     public function hIncrByFloat(string $key, string $field, float $floatValue) : float
     {
-        return $this->cRedisInstance->hIncrByFloat($key, $field, $floatValue);
+        return $this->cRedisConnection->establish()->hIncrByFloat($key, $field, $floatValue);
     }
 
     /**
@@ -549,7 +551,7 @@ class CRedis implements RedisInterface
      */
     public function hVals(string $key) : array
     {
-        return $this->cRedisInstance->hVals($key);
+        return $this->cRedisConnection->establish()->hVals($key);
     }
 
     /**
@@ -557,7 +559,7 @@ class CRedis implements RedisInterface
      */
     public function lIndex(string $key, int $index) : string
     {
-        return $this->cRedisInstance->lIndex($key, $index);
+        return $this->cRedisConnection->establish()->lIndex($key, $index);
     }
 
     /**
@@ -565,7 +567,7 @@ class CRedis implements RedisInterface
      */
     public function lInsert(string $key, int $index, string $pivot, $value) : bool
     {
-        return (-1 !== $this->cRedisInstance->lInsert($key, $index, $pivot, $value));
+        return (-1 !== $this->cRedisConnection->establish()->lInsert($key, $index, $pivot, $value));
     }
 
     /**
@@ -573,7 +575,7 @@ class CRedis implements RedisInterface
      */
     public function lLen(string $key) : int
     {
-        return $this->cRedisInstance->lLen($key);
+        return $this->cRedisConnection->establish()->lLen($key);
     }
 
     /**
@@ -581,7 +583,7 @@ class CRedis implements RedisInterface
      */
     public function lPop(string $key)
     {
-        return $this->cRedisInstance->lPop($key);
+        return $this->cRedisConnection->establish()->lPop($key);
     }
 
     /**
@@ -589,7 +591,7 @@ class CRedis implements RedisInterface
      */
     public function lPush(string $key, $value) : bool
     {
-        return (false !== $this->cRedisInstance->lPush($key, $value));
+        return (false !== $this->cRedisConnection->establish()->lPush($key, $value));
     }
 
     /**
@@ -597,7 +599,7 @@ class CRedis implements RedisInterface
      */
     public function lPushNx(string $key, $value) : bool
     {
-        return (false !== $this->cRedisInstance->lPushx($key, $value));
+        return (false !== $this->cRedisConnection->establish()->lPushx($key, $value));
     }
 
     /**
@@ -605,7 +607,7 @@ class CRedis implements RedisInterface
      */
     public function lRange(string $key, int $start, int $stop) : array
     {
-        return $this->cRedisInstance->lRange($key, $start, $stop);
+        return $this->cRedisConnection->establish()->lRange($key, $start, $stop);
     }
 
     /**
@@ -613,7 +615,7 @@ class CRedis implements RedisInterface
      */
     public function lRem(string $key, $reference, int $count) : int
     {
-        if (false === ($result = $this->cRedisInstance->lRem($key, $reference, $count))) {
+        if (false === ($result = $this->cRedisConnection->establish()->lRem($key, $reference, $count))) {
             return 0;
         }
 
@@ -625,7 +627,7 @@ class CRedis implements RedisInterface
      */
     public function lSet(string $key, int $index, $value) : bool
     {
-        return $this->cRedisInstance->lSet($key, $index, $value);
+        return $this->cRedisConnection->establish()->lSet($key, $index, $value);
     }
 
     /**
@@ -633,7 +635,7 @@ class CRedis implements RedisInterface
      */
     public function lTrim(string $key, int $start, int $stop) : array
     {
-        if (false === ($result = $this->cRedisInstance->lTrim($key, $start, $stop))) {
+        if (false === ($result = $this->cRedisConnection->establish()->lTrim($key, $start, $stop))) {
             return [];
         }
 
@@ -645,7 +647,7 @@ class CRedis implements RedisInterface
      */
     public function rPop(string $key)
     {
-        return $this->cRedisInstance->rPop($key);
+        return $this->cRedisConnection->establish()->rPop($key);
     }
 
     /**
@@ -653,7 +655,7 @@ class CRedis implements RedisInterface
      */
     public function rPush(string $key, $value) : bool
     {
-        return (false !== $this->cRedisInstance->rPush($key, $value));
+        return (false !== $this->cRedisConnection->establish()->rPush($key, $value));
     }
 
     /**
@@ -661,7 +663,7 @@ class CRedis implements RedisInterface
      */
     public function rPushNx(string $key, $value) : bool
     {
-        return (false !== $this->cRedisInstance->rPushx($key, $value));
+        return (false !== $this->cRedisConnection->establish()->rPushx($key, $value));
     }
 
     /**
@@ -669,7 +671,7 @@ class CRedis implements RedisInterface
      */
     public function watch(string $key) : RedisInterface
     {
-        $this->cRedisInstance->watch($key);
+        $this->cRedisConnection->establish()->watch($key);
 
         return $this;
     }
@@ -679,7 +681,7 @@ class CRedis implements RedisInterface
      */
     public function unwatch() : RedisInterface
     {
-        $this->cRedisInstance->unwatch();
+        $this->cRedisConnection->establish()->unwatch();
 
         return $this;
     }
@@ -689,7 +691,7 @@ class CRedis implements RedisInterface
      */
     public function expireAt(string $key, int $ttl) : bool
     {
-        return $this->cRedisInstance->expireAt($key, $ttl);
+        return $this->cRedisConnection->establish()->expireAt($key, $ttl);
     }
 
     /**
@@ -697,7 +699,7 @@ class CRedis implements RedisInterface
      */
     public function flush() : RedisInterface
     {
-        $this->cRedisInstance->flushDB();
+        $this->cRedisConnection->establish()->flushDB();
 
         return $this;
     }
@@ -705,8 +707,16 @@ class CRedis implements RedisInterface
     /**
      * @inheritDoc
      */
+    public function runQuery($query, array $bindParams, array $bindTypes = []) : GeneratorInterface
+    {
+        throw new BadMethodRedisException($this, __METHOD__);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function info() : array
     {
-        return $this->cRedisInstance->info();
+        return $this->cRedisConnection->establish()->info();
     }
 }
