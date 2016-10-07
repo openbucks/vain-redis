@@ -18,7 +18,7 @@ services:
     arguments: ['credis']
     tags:
       - {name: cache.factory}
-  connection.factory.credis:
+  connection.factory.credis.trust:
     class: Vain\Redis\Connection\Factory\CRedisConnectionFactory
     arguments: ['credis']
     tags:
