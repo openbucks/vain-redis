@@ -1,5 +1,6 @@
 parameters:
   redis.database: 'redis'
+  credis.config.required.fields: ['host', 'port', 'db']
 
 services:
   database.redis:
@@ -22,3 +23,8 @@ services:
     arguments: ['credis']
     tags:
       - {name: connection.factory}
+  connection.factory.credis.assert:
+    class: Vain\Connection\Factory\Decorator\Assert\ConnectionFactoryAssertDecorator
+    decorates: connection.factory.pdo.trust
+    arguments: ['@connection.factory.credis.assert.inner', '%credis.config.required.fields%']
+  connection.factory.credis: '@connection.factory.credis.assert'

@@ -50,13 +50,6 @@ class CRedisConnection extends AbstractConnection
      */
     protected function getCredentials(array $config) : array
     {
-        $requiredFields = ['host', 'port', 'db'];
-        foreach ($requiredFields as $requiredField) {
-            if (false === array_key_exists($requiredField, $config)) {
-                throw new NoRequiredFieldException($this, $requiredField);
-            }
-        }
-
         return [$config['host'], (int)$config['port'], (int)$config['db'], $this->getPassword($config)];
     }
 
