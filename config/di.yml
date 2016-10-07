@@ -25,6 +25,6 @@ services:
       - {name: connection.factory}
   connection.factory.credis.assert:
     class: Vain\Connection\Factory\Decorator\Assert\ConnectionFactoryAssertDecorator
-    decorates: connection.factory.pdo.trust
+    decorates: connection.factory.credis.trust
     arguments: ['@connection.factory.credis.assert.inner', '%credis.config.required.fields%']
   connection.factory.credis: '@connection.factory.credis.assert'
