@@ -12,15 +12,15 @@ declare(strict_types = 1);
 
 namespace Vain\Redis\Exception;
 
+use Vain\Cache\Exception\CacheException;
 use Vain\Redis\RedisInterface;
-use Vain\Core\Exception\AbstractCoreException;
 
 /**
  * Class RedisException
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class RedisException extends AbstractCoreException
+class RedisException extends CacheException
 {
     /**
      * RedisException constructor.
@@ -30,7 +30,7 @@ class RedisException extends AbstractCoreException
      * @param int            $code
      * @param \Exception     $previous
      */
-    public function __construct(RedisInterface $cache, string $message, int $code, \Exception $previous = null)
+    public function __construct(RedisInterface $cache, string $message, int $code = 500, \Exception $previous = null)
     {
         parent::__construct($cache, $message, $code, $previous);
     }

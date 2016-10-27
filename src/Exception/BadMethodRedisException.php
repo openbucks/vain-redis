@@ -29,6 +29,6 @@ class BadMethodRedisException extends RedisException
      */
     public function __construct(RedisInterface $cache, string $method)
     {
-        parent::__construct($cache, sprintf('Method %s is not supported', $method), 0, null);
+        parent::__construct($cache, sprintf('Method %s is not supported', $method));
     }
 }

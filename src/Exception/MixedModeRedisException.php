@@ -27,9 +27,9 @@ class MixedModeRedisException extends MultiRedisException
      */
     public function __construct(MultiRedisInterface $multiRedis)
     {
-        parent::__construct($multiRedis,
-                            sprintf('Misc mode of multi and pipeline is now allowed on single connection'),
-                            0,
-                            null);
+        parent::__construct(
+            $multiRedis,
+            sprintf('Misc mode of multi and pipeline is now allowed on single connection')
+        );
     }
 }

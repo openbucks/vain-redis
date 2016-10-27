@@ -29,6 +29,6 @@ class LevelIntegrityRedisException extends MultiRedisException
      */
     public function __construct(MultiRedisInterface $multiRedis, int $level)
     {
-        parent::__construct($multiRedis, sprintf('Level integrity check exception for level %d', $level), 0, null);
+        parent::__construct($multiRedis, sprintf('Level integrity check exception for level %d', $level));
     }
 }

@@ -27,6 +27,6 @@ class DirectExecRedisException extends RedisException
      */
     public function __construct(RedisInterface $cache)
     {
-        parent::__construct($cache, sprintf('Direct exec() call on redis is not allowed'), 0, null);
+        parent::__construct($cache, sprintf('Direct exec() call on redis is not allowed'));
     }
 }

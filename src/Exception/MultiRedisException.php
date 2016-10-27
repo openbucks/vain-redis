@@ -8,6 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-cache
  */
+declare(strict_types = 1);
 
 namespace Vain\Redis\Exception;
 
@@ -34,7 +35,7 @@ class MultiRedisException extends AbstractCoreException
     public function __construct(
         MultiRedisInterface $multiRedis,
         string $message,
-        int $code,
+        int $code = 500,
         \Exception $previous = null
     ) {
         $this->multiRedis = $multiRedis;
