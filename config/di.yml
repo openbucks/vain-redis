@@ -21,9 +21,10 @@ services:
   connection.factory.credis.trust:
     class: Vain\Redis\Connection\Factory\CRedisConnectionFactory
     arguments: ['credis']
-    tags:
-      - {name: connection.factory}
   connection.factory.credis.assert:
     class: Vain\Connection\Factory\Decorator\Assert\ConnectionFactoryAssertDecorator
     arguments: ['@connection.factory.credis.trust', '%credis.config.required.fields%']
-  connection.factory.credis: '@connection.factory.credis.assert'
+  connection.factory.credis:
+    alias: connection.factory.credis.assert
+    tags:
+      - {name: connection.factory}
