@@ -1,6 +1,5 @@
 parameters:
   redis.database: 'redis'
-  credis.config.required.fields: ['host', 'port', 'db']
 
 services:
   database.redis:
@@ -18,13 +17,8 @@ services:
     arguments: ['credis']
     tags:
       - {name: cache.factory}
-  connection.factory.credis.trust:
+  connection.factory.credis:
     class: Vain\Redis\Connection\Factory\CRedisConnectionFactory
     arguments: ['credis']
-  connection.factory.credis.assert:
-    class: Vain\Connection\Factory\Decorator\Assert\ConnectionFactoryAssertDecorator
-    arguments: ['@connection.factory.credis.trust', '%credis.config.required.fields%']
-  connection.factory.credis:
-    alias: connection.factory.credis.assert
     tags:
       - {name: connection.factory}

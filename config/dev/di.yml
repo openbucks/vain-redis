@@ -1,0 +1,11 @@
+imports:
+  - { resource: '../di.yml' }
+
+parameters:
+  credis.config.required.fields: ['host', 'port', 'db']
+
+services:
+  connection.factory.credis:
+    class: Vain\Connection\Factory\Decorator\Assert\ConnectionFactoryAssertDecorator
+    decorates: connection.factory.credis
+    arguments: ['@connection.factory.credis.inner', '%credis.config.required.fields%']
