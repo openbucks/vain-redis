@@ -5,7 +5,7 @@ parameters:
   credis.config.required.fields: ['host', 'port', 'db']
 
 services:
-  connection.factory.credis:
+  connection.factory.credis.assert:
     class: Vain\Connection\Factory\Decorator\Assert\ConnectionFactoryAssertDecorator
     decorates: connection.factory.credis
-    arguments: ['@connection.factory.credis.inner', '%credis.config.required.fields%']
+    arguments: ['@connection.factory.credis.assert.inner', '%credis.config.required.fields%']
