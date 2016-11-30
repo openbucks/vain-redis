@@ -54,6 +54,18 @@ class CRedisConnection extends AbstractConnection
     }
 
     /**
+     * @return mixed
+     */
+    protected function getSerializerValue()
+    {
+        if (defined('Redis::SERIALIZER_IGBINARY') && extension_loaded('igbinary')) {
+            return \Redis::SERIALIZER_IGBINARY;
+        }
+
+        return \Redis::SERIALIZER_PHP;
+    }
+
+    /**
      * @inheritDoc
      */
     public function doConnect(array $configData)
@@ -66,6 +78,7 @@ class CRedisConnection extends AbstractConnection
             $redis->auth($password);
         }
         $redis->select($db);
+        $redis->setOption(\Redis::OPT_SERIALIZER, $this->getSerializerValue());
 
         return $redis;
     }
