@@ -50,7 +50,7 @@ class CRedisConnection extends AbstractConnection
      */
     protected function getCredentials(array $config) : array
     {
-        return [$config['host'], (int)$config['port'], (int)$config['db'], $this->getPassword($config)];
+        return [$config['host'], (int)$config['port'], (int)$config['db'], $this->getPassword($config), (bool)$config['serializer']];
     }
 
     /**
@@ -70,15 +70,17 @@ class CRedisConnection extends AbstractConnection
      */
     public function doConnect(array $configData)
     {
-        list ($host, $port, $db, $password) = $this->getCredentials($configData);
+        list ($host, $port, $db, $password, $serializer) = $this->getCredentials($configData);
 
         $redis = new \Redis();
         $redis->connect($host, $port);
         if ('' !== $password) {
             $redis->auth($password);
         }
+        if ($serializer) {
+            $redis->setOption(\Redis::OPT_SERIALIZER, $this->getSerializerValue());
+        }
         $redis->select($db);
-        $redis->setOption(\Redis::OPT_SERIALIZER, $this->getSerializerValue());
 
         return $redis;
     }
