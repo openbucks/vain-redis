@@ -66,10 +66,6 @@ class CRedisConnection extends AbstractConnection
             $redis->auth($password);
         }
         $redis->select($db);
-        $redis->setOption(
-            \Redis::OPT_SERIALIZER,
-            defined('Redis::SERIALIZER_IGBINARY') ? \Redis::SERIALIZER_IGBINARY : \Redis::SERIALIZER_PHP
-        );
 
         return $redis;
     }
