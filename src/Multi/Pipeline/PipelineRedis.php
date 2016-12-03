@@ -9,25 +9,27 @@
  * @link      https://github.com/allflame/vain-cache
  */
 
-namespace Vain\Redis\CRedis\Multi\Transaction;
+namespace Vain\Redis\Multi\Pipeline;
 
 use Vain\Redis\Exception\MixedModeRedisException;
-use Vain\Redis\CRedis\Multi\AbstractMultiRedis;
-use Vain\Redis\CRedis\Multi\MultiRedisInterface;
+use Vain\Redis\Multi\AbstractMultiRedis;
+use Vain\Redis\Multi\MultiRedisInterface;
 
 /**
- * Class TransactionRedis
+ * Class PipelineRedis
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class TransactionRedis extends AbstractMultiRedis
+class PipelineRedis extends AbstractMultiRedis
 {
     /**
      * @inheritDoc
      */
     public function pipeline() : MultiRedisInterface
     {
-        throw new MixedModeRedisException($this);
+        $this->increaseLevel();
+
+        return $this;
     }
 
     /**
@@ -35,8 +37,6 @@ class TransactionRedis extends AbstractMultiRedis
      */
     public function multi() : MultiRedisInterface
     {
-        $this->increaseLevel();
-
-        return $this;
+        throw new MixedModeRedisException($this);
     }
 }

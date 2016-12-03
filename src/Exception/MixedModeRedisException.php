@@ -11,7 +11,7 @@
 
 namespace Vain\Redis\Exception;
 
-use Vain\Redis\CRedis\Multi\MultiRedisInterface;
+use Vain\Redis\Multi\MultiRedisInterface;
 
 /**
  * Class MixedModeRedisException

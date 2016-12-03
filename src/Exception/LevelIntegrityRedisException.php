@@ -12,7 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Redis\Exception;
 
-use Vain\Redis\CRedis\Multi\MultiRedisInterface;
+use Vain\Redis\Multi\MultiRedisInterface;
 
 /**
  * Class LevelIntegrityRedisException

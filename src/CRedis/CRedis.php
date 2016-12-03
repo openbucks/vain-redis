@@ -15,10 +15,9 @@ namespace Vain\Redis\CRedis;
 use Vain\Database\Generator\GeneratorInterface;
 use Vain\Redis\Connection\CRedisConnection;
 use Vain\Redis\Exception\BadMethodRedisException;
-use Vain\Redis\Exception\DirectExecRedisException;
-use Vain\Redis\CRedis\Multi\MultiRedisInterface;
-use Vain\Redis\CRedis\Multi\Pipeline\PipelineRedis;
-use Vain\Redis\CRedis\Multi\Transaction\TransactionRedis;
+use Vain\Redis\Multi\MultiRedisInterface;
+use Vain\Redis\Multi\Pipeline\PipelineRedis;
+use Vain\Redis\Multi\Transaction\TransactionRedis;
 use Vain\Redis\RedisInterface;
 
 /***
@@ -123,17 +122,22 @@ class CRedis implements RedisInterface
      */
     public function zAddMod(string $key, string $mode, int $score, $value) : bool
     {
-        throw new BadMethodRedisException($this, __METHOD__);
+        if (false !== $this->cRedisConnection->establish()->evalSha(
+                sha1(CRedisConnection::REDIS_ZADD_XX_NX),
+                [
+                    $this->cRedisConnection->establish()->_prefix(
+                        $key
+                    ),
+                    $mode,
+                    $score,
+                    $value,
+                ],
+                1
+            )) {
+            return true;
+        }
 
-//        $zAddCommand = sprintf(
-//            'return redis.call(\'zAdd\', \'%s\', \'%s\', \'%d\', \'%s\')',
-//            $this->cRedisInstance->_prefix($key),
-//            $mode,
-//            $score,
-//            $value
-//        );
-//
-//        return $this->cRedisInstance->eval($zAddCommand);
+        return false;
     }
 
     /**
@@ -445,7 +449,7 @@ class CRedis implements RedisInterface
     {
         $this->cRedisConnection->establish()->multi(\Redis::PIPELINE);
 
-        return new PipelineRedis($this->cRedisConnection->establish());
+        return new PipelineRedis($this);
     }
 
     /**
@@ -455,15 +459,15 @@ class CRedis implements RedisInterface
     {
         $this->cRedisConnection->establish()->multi(\Redis::MULTI);
 
-        return new TransactionRedis($this->cRedisConnection->establish());
+        return new TransactionRedis($this);
     }
 
     /**
      * @inheritDoc
      */
-    public function exec() : array
+    public function exec(MultiRedisInterface $multiRedis) : array
     {
-        throw new DirectExecRedisException($this);
+        return $this->cRedisConnection->establish()->exec();
     }
 
     /**

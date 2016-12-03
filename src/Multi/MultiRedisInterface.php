@@ -9,7 +9,7 @@
  * @link      https://github.com/allflame/vain-cache
  */
 
-namespace Vain\Redis\CRedis\Multi;
+namespace Vain\Redis\Multi;
 
 /**
  * Interface MultiRedisInterface

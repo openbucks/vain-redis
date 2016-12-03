@@ -23,6 +23,8 @@ use Vain\Connection\Exception\NoRequiredFieldException;
  */
 class CRedisConnection extends AbstractConnection
 {
+    const REDIS_ZADD_XX_NX = "return redis.call('zAdd', KEYS[1], ARGV[1], ARGV[2], ARGV[3])";
+
     /**
      * @param array $config
      *
@@ -83,6 +85,10 @@ class CRedisConnection extends AbstractConnection
             $redis->setOption(\Redis::OPT_SERIALIZER, $this->getSerializerValue());
         }
         $redis->select($db);
+
+        if (false === $redis->script('exists', sha1(self::REDIS_ZADD_XX_NX))) {
+            $redis->script('load', self::REDIS_ZADD_XX_NX);
+        }
 
         return $redis;
     }

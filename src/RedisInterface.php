@@ -14,7 +14,7 @@ namespace Vain\Redis;
 
 use Vain\Cache\CacheInterface;
 use Vain\Database\DatabaseInterface;
-use Vain\Redis\CRedis\Multi\MultiRedisInterface;
+use Vain\Redis\Multi\MultiRedisInterface;
 
 /**
  * Interface RedisInterface
@@ -345,9 +345,11 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
     public function multi() : MultiRedisInterface;
 
     /**
+     * @param MultiRedisInterface $multiRedis
+     *
      * @return array
      */
-    public function exec() : array;
+    public function exec(MultiRedisInterface $multiRedis) : array;
 
     /**
      * @param string $oldName
