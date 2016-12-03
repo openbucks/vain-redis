@@ -18,6 +18,8 @@ use Vain\Connection\Exception\NoRequiredFieldException;
  * Class CRedisConnection
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
+ *
+ * @method \Redis establish
  */
 class CRedisConnection extends AbstractConnection
 {
