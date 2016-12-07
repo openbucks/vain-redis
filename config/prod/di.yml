@@ -1,2 +1,8 @@
 imports:
   - { resource: '../di.yml' }
+services:
+  connection.factory.credis.proxy:
+    class: Vain\Connection\Factory\Decorator\Proxy\ConnectionFactoryProxyDecorator
+    decorates: connection.credis.doctrine
+    decoration_priority: 100
+    arguments: ['@connection.factory.credis.proxy.inner']
