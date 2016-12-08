@@ -24,6 +24,6 @@ services:
       - {name: connection.factory}
   connection.factory.credis.proxy:
     class: Vain\Connection\Factory\Decorator\Proxy\ConnectionFactoryProxyDecorator
-    decorates: connection.credis.doctrine
+    decorates: connection.factory.credis
     decoration_priority: 100
     arguments: ['@connection.factory.credis.proxy.inner']
