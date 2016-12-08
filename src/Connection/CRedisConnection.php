@@ -64,7 +64,13 @@ class CRedisConnection implements ConnectionInterface
      */
     protected function getCredentials(array $config) : array
     {
-        return [$config['host'], (int)$config['port'], (int)$config['db'], $this->getPassword($config), (bool)$config['serializer']];
+        return [
+            $config['host'],
+            (int)$config['port'],
+            (int)$config['db'],
+            $this->getPassword($config),
+            (bool)$config['serializer'],
+        ];
     }
 
     /**

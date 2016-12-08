@@ -212,7 +212,12 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRangeByScore(string $key, int $fromScore, int $toScore, array $options = []) : MultiRedisInterface
+    public function zRevRangeByScore(
+        string $key,
+        int $fromScore,
+        int $toScore,
+        array $options = []
+    ) : MultiRedisInterface
     {
         $this->redis->zRevRangeByScore($key, $fromScore, $toScore, $options);
 
@@ -222,14 +227,20 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRangeByScoreLimit(string $key, int $fromScore, int $toScore, int $offset, int $count) : MultiRedisInterface
+    public function zRevRangeByScoreLimit(
+        string $key,
+        int $fromScore,
+        int $toScore,
+        int $offset,
+        int $count
+    ) : MultiRedisInterface
     {
         return $this->zRevRangeByScore(
             $key,
             $fromScore,
             $toScore,
             [
-                RedisInterface::ZRANGE_LIMIT  => $count,
+                RedisInterface::ZRANGE_LIMIT => $count,
                 RedisInterface::ZRANGE_OFFSET => $offset,
             ]
         );

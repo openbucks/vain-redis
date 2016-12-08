@@ -91,9 +91,9 @@ class CRedis implements RedisInterface
     {
         $result = $this->connection->establish()->ttl($key);
         if (false === $result) {
-            return 0; 
+            return 0;
         }
-        
+
         return $this->multi ? 0 : $result;
     }
 
@@ -102,7 +102,7 @@ class CRedis implements RedisInterface
      */
     public function expire(string $key, int $ttl) : bool
     {
-        $result =  $this->connection->establish()->expire($key, $ttl);
+        $result = $this->connection->establish()->expire($key, $ttl);
 
         return $this->multi ? true : $result;
     }
@@ -136,18 +136,21 @@ class CRedis implements RedisInterface
      */
     public function zAddMod(string $key, string $mode, int $score, $value) : bool
     {
-        if (false !== $this->connection->establish()->evalSha(
-                sha1(CRedisConnection::REDIS_ZADD_XX_NX),
-                [
-                    $this->connection->establish()->_prefix(
-                        $key
-                    ),
-                    $mode,
-                    $score,
-                    $value,
-                ],
-                1
-            )) {
+        if (false !== $this->connection
+                ->establish()
+                ->evalSha(
+                    sha1(CRedisConnection::REDIS_ZADD_XX_NX),
+                    [
+                        $this->connection->establish()->_prefix(
+                            $key
+                        ),
+                        $mode,
+                        $score,
+                        $value,
+                    ],
+                    1
+                )
+        ) {
             return true;
         }
 
@@ -823,7 +826,7 @@ class CRedis implements RedisInterface
      */
     public function expireAt(string $key, int $ttl) : bool
     {
-        $result =$this->connection->establish()->expireAt($key, $ttl);
+        $result = $this->connection->establish()->expireAt($key, $ttl);
 
         return $this->multi ? true : $result;
     }
