@@ -1,12 +1,18 @@
 parameters:
-  redis.database: 'redis'
+  redis.database.name: 'redis'
+  redis.cache.name: 'l2'
 
 services:
+  cache.redis:
+    class: RedisInterface
+    factory: ['@cache.storage', getCache]
+    arguments:
+      - '%redis.cache.name%'
   database.redis:
     class: Vain\Redis\RedisInterface
     factory: ['@database.storage', getDatabase]
     arguments:
-      - '%redis.database%'
+      - '%redis.database.name%'
   database.factory.credis:
     class: Vain\Redis\Database\Factory\CRedisDatabaseFactory
     arguments: ['credis']
@@ -27,13 +33,3 @@ services:
     decorates: connection.factory.credis
     decoration_priority: 100
     arguments: ['@connection.factory.credis.proxy.inner']
-  cache.redis:
-    class: RedisInterface
-    factory: ['@cache.storage', getCache]
-    arguments:
-      - 'l2'
-  database.redis:
-    class: RedisInterface
-    factory: ['@database.storage', getDatabase]
-    arguments:
-      - 'redis'
