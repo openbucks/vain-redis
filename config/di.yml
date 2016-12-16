@@ -23,7 +23,7 @@ services:
     tags:
       - {name: connection}
   connection.redis.cache:
-  parent: connection.abstract
+    parent: connection.abstract
     class: Vain\Redis\Connection\CRedisConnection
     arguments: ['%redis.connection.cache%']
     tags:
