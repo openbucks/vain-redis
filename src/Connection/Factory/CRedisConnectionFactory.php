@@ -25,8 +25,16 @@ class CRedisConnectionFactory extends AbstractConnectionFactory
     /**
      * @inheritDoc
      */
-    public function createConnection(array $config) : ConnectionInterface
+    public function getName() : string
     {
-        return new CRedisConnection($config);
+        return 'credis';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createConnection(string $connectionName) : ConnectionInterface
+    {
+        return new CRedisConnection($this->getConfigData($connectionName));
     }
 }
