@@ -12,7 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Redis;
 
-use Vain\Cache\CacheInterface;
+use Vain\Core\Cache\CacheInterface;
 use Vain\Core\Database\DatabaseInterface;
 use Vain\Redis\Multi\MultiRedisInterface;
 

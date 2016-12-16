@@ -12,7 +12,7 @@ declare(strict_types = 1);
 
 namespace Vain\Redis\Exception;
 
-use Vain\Cache\Exception\CacheException;
+use Vain\Core\Exception\CacheException;
 use Vain\Redis\RedisInterface;
 
 /**

@@ -11,8 +11,8 @@
 
 namespace Vain\Redis\Cache\Factory;
 
-use Vain\Cache\CacheInterface;
-use Vain\Cache\Factory\AbstractCacheFactory;
+use Vain\Core\Cache\CacheInterface;
+use Vain\Core\Cache\Factory\AbstractCacheFactory;
 use Vain\Core\Connection\ConnectionInterface;
 use Vain\Redis\Connection\CRedisConnection;
 use Vain\Redis\CRedis\CRedis;
