@@ -4,10 +4,9 @@ parameters:
 
 services:
   cache.redis:
-    class: RedisInterface
-    factory: ['@cache.storage', getCache]
-    arguments:
-      - '%redis.connection.cache%'
+    parent: database.abstract
+    class: Vain\Redis\Database\RedisDatabase
+    arguments: ['@connection.redis.cache']
   database.redis:
     parent: database.abstract
     class: Vain\Redis\Database\RedisDatabase
@@ -18,18 +17,14 @@ services:
     tags:
       - {name: cache.factory}
   connection.redis.database:
-    factory: ['@connection.factory.credis', 'createConnection']
-    arguments:
-      - '%redis.connection.database%'
+    parent: connection.abstract
+    class: Vain\Redis\Connection\CRedisConnection
+    arguments: ['%redis.connection.database%']
+    tags:
+      - {name: connection}
   connection.redis.cache:
-    factory: ['@connection.factory.credis', 'createConnection']
-    arguments:
-      - '%redis.connection.cache%'
-  connection.factory.credis:
-    parent: connection.factory.abstract
-    class: Vain\Redis\Connection\Factory\CRedisConnectionFactory
-  connection.factory.credis.proxy:
-    class: Vain\Core\Connection\Factory\Decorator\Proxy\ConnectionFactoryProxyDecorator
-    decorates: connection.factory.credis
-    decoration_priority: 100
-    arguments: ['@connection.factory.credis.proxy.inner']
+  parent: connection.abstract
+    class: Vain\Redis\Connection\CRedisConnection
+    arguments: ['%redis.connection.cache%']
+    tags:
+      - {name: connection}

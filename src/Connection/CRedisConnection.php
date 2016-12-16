@@ -11,7 +11,7 @@
 
 namespace Vain\Redis\Connection;
 
-use Vain\Core\Connection\ConnectionInterface;
+use Vain\Core\Connection\AbstractConnection;
 use Vain\Core\Exception\NoRequiredFieldException;
 
 /**
@@ -19,21 +19,9 @@ use Vain\Core\Exception\NoRequiredFieldException;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class CRedisConnection implements ConnectionInterface
+class CRedisConnection extends AbstractConnection
 {
     const REDIS_ZADD_XX_NX = "return redis.call('zAdd', KEYS[1], ARGV[1], ARGV[2], ARGV[3])";
-
-    private $configData;
-
-    /**
-     * CRedisConnection constructor.
-     *
-     * @param array $configData
-     */
-    public function __construct(array $configData)
-    {
-        $this->configData = $configData;
-    }
 
     /**
      * @param array $config
@@ -88,17 +76,9 @@ class CRedisConnection implements ConnectionInterface
     /**
      * @inheritDoc
      */
-    public function getName() : string
-    {
-        return $this->configData['driver'];
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function establish()
     {
-        list ($host, $port, $db, $password, $serializer) = $this->getCredentials($this->configData);
+        list ($host, $port, $db, $password, $serializer) = $this->getCredentials($this->getConfigData());
 
         $redis = new \Redis();
         $redis->connect($host, $port);

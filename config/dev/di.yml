@@ -1,17 +1,2 @@
 imports:
   - { resource: '../di.yml' }
-
-parameters:
-  credis.config.required.fields: ['host', 'port', 'db']
-
-services:
-  connection.factory.credis.assert:
-    class: Vain\Core\Connection\Factory\Decorator\Assert\ConnectionFactoryAssertDecorator
-    decorates: connection.factory.credis
-    decoration_priority: 900
-    arguments: ['@connection.factory.credis.assert.inner', '%credis.config.required.fields%']
-  connection.factory.credis.logger:
-    class: Vain\Core\Connection\Factory\Decorator\Logger\ConnectionFactoryLoggerDecorator
-    decorates: connection.factory.credis
-    decoration_priority: 1000
-    arguments: ['@connection.factory.credis.logger.inner', '@logger.connection']
