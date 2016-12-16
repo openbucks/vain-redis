@@ -9,7 +9,7 @@ services:
       - '%redis.cache.name%'
   database.redis:
     parent: database.abstract
-    class: Vain\Redis\RedisInterface
+    class: Vain\Redis\Database\RedisDatabase
   cache.factory.credis:
     class: Vain\Redis\Cache\Factory\CRedisCacheFactory
     arguments: ['credis']
