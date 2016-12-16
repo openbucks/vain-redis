@@ -1,6 +1,6 @@
 parameters:
-  redis.connection.database: 'redis'
-  redis.connection.cache: 'l2'
+  redis.connection.database: 'redis-db'
+  redis.connection.cache: 'redis-cache'
 
 services:
   cache.redis:
