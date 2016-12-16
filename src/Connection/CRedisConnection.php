@@ -12,7 +12,7 @@
 namespace Vain\Redis\Connection;
 
 use Vain\Core\Connection\ConnectionInterface;
-use Vain\Core\Connection\Exception\NoRequiredFieldException;
+use Vain\Core\Exception\NoRequiredFieldException;
 
 /**
  * Class CRedisConnection

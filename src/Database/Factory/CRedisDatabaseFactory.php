@@ -13,7 +13,7 @@ namespace Vain\Redis\Database\Factory;
 
 use Vain\Core\Connection\ConnectionInterface;
 use Vain\Core\Database\DatabaseInterface;
-use Vain\Database\Factory\AbstractDatabaseFactory;
+use Vain\Core\Database\Factory\AbstractDatabaseFactory;
 use Vain\Redis\Connection\CRedisConnection;
 use Vain\Redis\CRedis\CRedis;
 
