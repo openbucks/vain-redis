@@ -28,8 +28,6 @@ services:
   connection.factory.credis:
     parent: connection.factory.abstract
     class: Vain\Redis\Connection\Factory\CRedisConnectionFactory
-    tags:
-      - {name: connection.factory}
   connection.factory.credis.proxy:
     class: Vain\Core\Connection\Factory\Decorator\Proxy\ConnectionFactoryProxyDecorator
     decorates: connection.factory.credis
