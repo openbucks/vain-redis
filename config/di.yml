@@ -1,13 +1,13 @@
 parameters:
-  redis.database.name: 'redis'
-  redis.cache.name: 'l2'
+  redis.connection.database: 'redis'
+  redis.connection.cache: 'l2'
 
 services:
   cache.redis:
     class: RedisInterface
     factory: ['@cache.storage', getCache]
     arguments:
-      - '%redis.cache.name%'
+      - '%redis.connection.cache%'
   database.redis:
     parent: database.abstract
     class: Vain\Redis\Database\RedisDatabase
@@ -20,11 +20,11 @@ services:
   connection.redis.database:
     factory: ['@connection.factory.credis', 'createConnection']
     arguments:
-      - '%redis.database.name%'
+      - '%redis.connection.database%'
   connection.redis.cache:
     factory: ['@connection.factory.credis', 'createConnection']
     arguments:
-      - '%redis.cache.name%'
+      - '%redis.connection.cache%'
   connection.factory.credis:
     parent: connection.factory.abstract
     class: Vain\Redis\Connection\Factory\CRedisConnectionFactory
