@@ -29,7 +29,7 @@ services:
     tags:
       - {name: connection.factory}
   connection.factory.credis.proxy:
-    class: Vain\Connection\Factory\Decorator\Proxy\ConnectionFactoryProxyDecorator
+    class: Vain\Core\Connection\Factory\Decorator\Proxy\ConnectionFactoryProxyDecorator
     decorates: connection.factory.credis
     decoration_priority: 100
     arguments: ['@connection.factory.credis.proxy.inner']

@@ -17,7 +17,6 @@
     "require": {
         "php": ">=7.0",
         "vain/cache": "^0.4",
-        "vain/connection": "^0.4",
         "vain/core": "^0.4",
         "vain/database": "^0.4"
     },
