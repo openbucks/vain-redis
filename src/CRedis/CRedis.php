@@ -12,8 +12,8 @@ declare(strict_types = 1);
 
 namespace Vain\Redis\CRedis;
 
-use Vain\Connection\ConnectionInterface;
-use Vain\Database\Generator\GeneratorInterface;
+use Vain\Core\Connection\ConnectionInterface;
+use Vain\Core\Database\Generator\DatabaseGeneratorInterface;
 use Vain\Redis\Connection\CRedisConnection;
 use Vain\Redis\Exception\BadMethodRedisException;
 use Vain\Redis\Multi\MultiRedisInterface;
@@ -844,7 +844,7 @@ class CRedis implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function runQuery($query, array $bindParams, array $bindTypes = []) : GeneratorInterface
+    public function runQuery($query, array $bindParams, array $bindTypes = []) : DatabaseGeneratorInterface
     {
         throw new BadMethodRedisException($this, __METHOD__);
     }

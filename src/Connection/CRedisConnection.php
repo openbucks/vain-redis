@@ -11,7 +11,7 @@
 
 namespace Vain\Redis\Connection;
 
-use Vain\Connection\ConnectionInterface;
+use Vain\Core\Connection\ConnectionInterface;
 use Vain\Connection\Exception\NoRequiredFieldException;
 
 /**

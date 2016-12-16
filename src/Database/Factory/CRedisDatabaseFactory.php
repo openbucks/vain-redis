@@ -11,8 +11,8 @@
 
 namespace Vain\Redis\Database\Factory;
 
-use Vain\Connection\ConnectionInterface;
-use Vain\Database\DatabaseInterface;
+use Vain\Core\Connection\ConnectionInterface;
+use Vain\Core\Database\DatabaseInterface;
 use Vain\Database\Factory\AbstractDatabaseFactory;
 use Vain\Redis\Connection\CRedisConnection;
 use Vain\Redis\CRedis\CRedis;
