@@ -1,5 +1,4 @@
 parameters:
-  redis.database.name: 'redis'
   redis.cache.name: 'l2'
 
 services:
@@ -9,15 +8,8 @@ services:
     arguments:
       - '%redis.cache.name%'
   database.redis:
+    parent: database.abstract
     class: Vain\Redis\RedisInterface
-    factory: ['@database.storage', getDatabase]
-    arguments:
-      - '%redis.database.name%'
-  database.factory.credis:
-    class: Vain\Redis\Database\Factory\CRedisDatabaseFactory
-    arguments: ['credis']
-    tags:
-      - {name: database.factory}
   cache.factory.credis:
     class: Vain\Redis\Cache\Factory\CRedisCacheFactory
     arguments: ['credis']
