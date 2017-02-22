@@ -365,9 +365,9 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sDiff(string $key1, string $key2) : array
+    public function sDiff(array $keys) : array
     {
-        $result = $this->getConnection()->sDiff($key1, $key2);
+        $result = $this->getConnection()->sDiff(...$keys);
 
         return $this->multi ? [] : $result;
     }
@@ -375,9 +375,19 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sInter(string $key1, string $key2) : array
+    public function sInter(array $keys) : array
     {
-        $result = $this->getConnection()->sInter($key1, $key2);
+        $result = $this->getConnection()->sInter(...$keys);
+
+        return $this->multi ? [] : $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function sUnion(array $keys) : array
+    {
+        $result = $this->getConnection()->sUnion(...$keys);
 
         return $this->multi ? [] : $result;
     }
@@ -445,11 +455,11 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function getRange(string $key, int $from, int $to) : array
+    public function getRange(string $key, int $from, int $to) : string
     {
         $result = $this->getConnection()->getRange($key, $from, $to);
 
-        return $this->multi ? [] : $result;
+        return $this->multi ? '' : $result;
     }
 
     /**

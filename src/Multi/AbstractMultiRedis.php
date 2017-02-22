@@ -369,9 +369,9 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sDiff(string $key1, string $key2) : MultiRedisInterface
+    public function sDiff(array $keys) : MultiRedisInterface
     {
-        $this->redis->sDiff($key1, $key2);
+        $this->redis->sDiff($keys);
 
         return $this;
     }
@@ -379,9 +379,19 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sInter(string $key1, string $key2) : MultiRedisInterface
+    public function sInter(array $keys) : MultiRedisInterface
     {
-        $this->redis->sInter($key1, $key2);
+        $this->redis->sInter($keys);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function sUnion(array $keys) : MultiRedisInterface
+    {
+        $this->redis->sUnion($keys);
 
         return $this;
     }

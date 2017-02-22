@@ -38,7 +38,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function pSet(string $key, $value) : bool;
+    public function pSet(string $key, $value): bool;
 
     /**
      * @param string $key
@@ -48,7 +48,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return mixed
      */
-    public function zAddMod(string $key, string $mode, int $score, $value) : bool;
+    public function zAddMod(string $key, string $mode, int $score, $value): bool;
 
     /**
      * @param string $key
@@ -57,14 +57,14 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function zAdd(string $key, int $score, $value) : bool;
+    public function zAdd(string $key, int $score, $value): bool;
 
     /**
      * @param string $key
      *
      * @return int
      */
-    public function zCard(string $key) : int;
+    public function zCard(string $key): int;
 
     /**
      * @param string $key
@@ -74,14 +74,13 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      */
     public function zRank(string $key, string $member);
 
-
     /**
      * @param string $key
      * @param string $member
      *
      * @return int
      */
-    public function zRevRank(string $key, string $member) : int;
+    public function zRevRank(string $key, string $member): int;
 
     /**
      * @param string $key
@@ -90,7 +89,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function zCount(string $key, int $fromScore, int $toScore) : int;
+    public function zCount(string $key, int $fromScore, int $toScore): int;
 
     /**
      * @param string $key
@@ -99,7 +98,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return float
      */
-    public function zIncrBy(string $key, float $score, string $member) : float;
+    public function zIncrBy(string $key, float $score, string $member): float;
 
     /**
      * @param string $key
@@ -107,7 +106,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function zDelete(string $key, string $member) : bool;
+    public function zDelete(string $key, string $member): bool;
 
     /**
      * @param string $key
@@ -116,7 +115,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function zDeleteRangeByScore(string $key, int $fromScore, int $toScore) : int;
+    public function zDeleteRangeByScore(string $key, int $fromScore, int $toScore): int;
 
     /**
      * @param string $key
@@ -125,7 +124,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function zRemRangeByRank(string $key, int $start, int $stop) : int;
+    public function zRemRangeByRank(string $key, int $start, int $stop): int;
 
     /**
      * @param string $key
@@ -134,7 +133,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function zRemRangeByScore(string $key, int $fromScore, int $toScore) : int;
+    public function zRemRangeByScore(string $key, int $fromScore, int $toScore): int;
 
     /**
      * @param string $key
@@ -142,7 +141,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return float
      */
-    public function zScore(string $key, string $member) : float;
+    public function zScore(string $key, string $member): float;
 
     /**
      * @param string $key
@@ -151,7 +150,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function zRange(string $key, int $from, int $to) : array;
+    public function zRange(string $key, int $from, int $to): array;
 
     /**
      * @param string $key
@@ -160,7 +159,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function zRevRange(string $key, int $from, int $to) : array;
+    public function zRevRange(string $key, int $from, int $to): array;
 
     /**
      * @param string $key
@@ -169,7 +168,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function zRevRangeWithScores(string $key, int $from, int $to) : array;
+    public function zRevRangeWithScores(string $key, int $from, int $to): array;
 
     /**
      * @param string $key
@@ -179,7 +178,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function zRevRangeByScore(string $key, int $fromScore, int $toScore, array $options = []) : array;
+    public function zRevRangeByScore(string $key, int $fromScore, int $toScore, array $options = []): array;
 
     /**
      * @param string $key
@@ -190,7 +189,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function zRevRangeByScoreLimit(string $key, int $fromScore, int $toScore, int $offset, int $count) : array;
+    public function zRevRangeByScoreLimit(string $key, int $fromScore, int $toScore, int $offset, int $count): array;
 
     /**
      * @param string $key
@@ -200,7 +199,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function zRangeByScore(string $key, int $fromScore, int $toScore, array $options = []) : array;
+    public function zRangeByScore(string $key, int $fromScore, int $toScore, array $options = []): array;
 
     /**
      * @param string $key
@@ -208,30 +207,35 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function sAdd(string $key, string $member) : bool;
+    public function sAdd(string $key, string $member): bool;
 
     /**
      * @param string $key
      *
      * @return int
      */
-    public function sCard(string $key) : int;
+    public function sCard(string $key): int;
 
     /**
-     * @param string $key1
-     * @param string $key2
+     * @param array $keys
      *
      * @return array
      */
-    public function sDiff(string $key1, string $key2) : array;
+    public function sDiff(array $keys): array;
 
     /**
-     * @param string $key1
-     * @param string $key2
+     * @param array $keys
      *
      * @return array
      */
-    public function sInter(string $key1, string $key2) : array;
+    public function sInter(array $keys): array;
+
+    /**
+     * @param array $keys
+     *
+     * @return array
+     */
+    public function sUnion(array $keys): array;
 
     /**
      * @param string $key
@@ -239,22 +243,22 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function sIsMember(string $key, string $member) : bool;
+    public function sIsMember(string $key, string $member): bool;
 
     /**
      * @param string $key
      *
      * @return array
      */
-    public function sMembers(string $key) : array;
+    public function sMembers(string $key): array;
 
     /**
      * @param string $key
-     * @param mixed $member
+     * @param mixed  $member
      *
      * @return bool
      */
-    public function sRem(string $key, string $member) : bool;
+    public function sRem(string $key, string $member): bool;
 
     /**
      * @param string $key
@@ -262,14 +266,14 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function append(string $key, string $value) : bool;
+    public function append(string $key, string $value): bool;
 
     /**
      * @param string $key
      *
      * @return int
      */
-    public function decr(string $key) : int;
+    public function decr(string $key): int;
 
     /**
      * @param string $key
@@ -277,23 +281,23 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function decrBy(string $key, int $value) : int;
+    public function decrBy(string $key, int $value): int;
 
     /**
      * @param string $key
      * @param int    $from
      * @param int    $to
      *
-     * @return array
+     * @return string
      */
-    public function getRange(string $key, int $from, int $to) : array;
+    public function getRange(string $key, int $from, int $to): string;
 
     /**
      * @param string $key
      *
      * @return int
      */
-    public function incr(string $key) : int;
+    public function incr(string $key): int;
 
     /**
      * @param string $key
@@ -301,21 +305,21 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function incrBy(string $key, int $value) : int;
+    public function incrBy(string $key, int $value): int;
 
     /**
      * @param array $keys
      *
      * @return array
      */
-    public function mGet(array $keys) : array;
+    public function mGet(array $keys): array;
 
     /**
      * @param array $keysAndValues
      *
      * @return bool
      */
-    public function mSet(array $keysAndValues) : bool;
+    public function mSet(array $keysAndValues): bool;
 
     /**
      * @param string $key
@@ -324,7 +328,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function setEx(string $key, $value, int $ttl) : bool;
+    public function setEx(string $key, $value, int $ttl): bool;
 
     /**
      * @param string $key
@@ -332,24 +336,24 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function setNx(string $key, $value) : bool;
+    public function setNx(string $key, $value): bool;
 
     /**
      * @return MultiRedisInterface
      */
-    public function pipeline() : MultiRedisInterface;
+    public function pipeline(): MultiRedisInterface;
 
     /**
      * @return MultiRedisInterface
      */
-    public function multi() : MultiRedisInterface;
+    public function multi(): MultiRedisInterface;
 
     /**
      * @param MultiRedisInterface $multiRedis
      *
      * @return array
      */
-    public function exec(MultiRedisInterface $multiRedis) : array;
+    public function exec(MultiRedisInterface $multiRedis): array;
 
     /**
      * @param string $oldName
@@ -357,7 +361,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function rename(string $oldName, string $newName) : bool;
+    public function rename(string $oldName, string $newName): bool;
 
     /**
      * @param string $key
@@ -365,7 +369,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function hDel(string $key, string $field) : bool;
+    public function hDel(string $key, string $field): bool;
 
     /**
      * @param string $key
@@ -380,7 +384,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function hGetAll(string $key) : array;
+    public function hGetAll(string $key): array;
 
     /**
      * @param string $key
@@ -388,7 +392,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function hSetAll(string $key, array $keysAndValues) : bool;
+    public function hSetAll(string $key, array $keysAndValues): bool;
 
     /**
      * @param string $key
@@ -397,7 +401,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function hSet(string $key, string $field, $value) : bool;
+    public function hSet(string $key, string $field, $value): bool;
 
     /**
      * @param string $key
@@ -406,7 +410,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function hSetNx(string $key, string $field, $value) : bool;
+    public function hSetNx(string $key, string $field, $value): bool;
 
     /**
      * @param string $key
@@ -414,7 +418,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function hExists(string $key, string $field) : bool;
+    public function hExists(string $key, string $field): bool;
 
     /**
      * @param string $key
@@ -423,7 +427,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function hIncrBy(string $key, string $field, int $value) : int;
+    public function hIncrBy(string $key, string $field, int $value): int;
 
     /**
      * @param string $key
@@ -432,14 +436,14 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return float
      */
-    public function hIncrByFloat(string $key, string $field, float $floatValue) : float;
+    public function hIncrByFloat(string $key, string $field, float $floatValue): float;
 
     /**
      * @param string $key
      *
      * @return array
      */
-    public function hVals(string $key) : array;
+    public function hVals(string $key): array;
 
     /**
      * @param string $key
@@ -457,14 +461,14 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function lInsert(string $key, int $index, string $pivot, $value) : bool;
+    public function lInsert(string $key, int $index, string $pivot, $value): bool;
 
     /**
      * @param string $key
      *
      * @return int
      */
-    public function lLen(string $key) : int;
+    public function lLen(string $key): int;
 
     /**
      * @param string $key
@@ -479,15 +483,15 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function lPush(string $key, $value) : bool;
+    public function lPush(string $key, $value): bool;
 
     /**
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return bool
      */
-    public function lPushNx(string $key, $value) : bool;
+    public function lPushNx(string $key, $value): bool;
 
     /**
      * @param string $key
@@ -496,7 +500,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function lRange(string $key, int $start, int $stop) : array;
+    public function lRange(string $key, int $start, int $stop): array;
 
     /**
      * @param string $key
@@ -505,7 +509,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function lRem(string $key, $reference, int $count) : int;
+    public function lRem(string $key, $reference, int $count): int;
 
     /**
      * @param string $key
@@ -514,7 +518,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function lSet(string $key, int $index, $value) : bool;
+    public function lSet(string $key, int $index, $value): bool;
 
     /**
      * @param string $key
@@ -523,7 +527,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return array
      */
-    public function lTrim(string $key, int $start, int $stop) : array;
+    public function lTrim(string $key, int $start, int $stop): array;
 
     /**
      * @param string $key
@@ -538,7 +542,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function rPush(string $key, $value) : bool;
+    public function rPush(string $key, $value): bool;
 
     /**
      * @param string $key
@@ -546,26 +550,26 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function rPushNx(string $key, $value) : bool;
+    public function rPushNx(string $key, $value): bool;
 
     /**
      * @param string $key
      *
      * @return int
      */
-    public function ttl(string $key) : int;
+    public function ttl(string $key): int;
 
     /**
      * @param string $key
      *
      * @return RedisInterface
      */
-    public function watch(string $key) : RedisInterface;
+    public function watch(string $key): RedisInterface;
 
     /**
      * @return RedisInterface
      */
-    public function unwatch() : RedisInterface;
+    public function unwatch(): RedisInterface;
 
     /**
      * @param string $key
@@ -573,15 +577,15 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function expireAt(string $key, int $ttl) : bool;
+    public function expireAt(string $key, int $ttl): bool;
 
     /**
      * @return RedisInterface
      */
-    public function flush() : RedisInterface;
+    public function flush(): RedisInterface;
 
     /**
      * @return array
      */
-    public function info() : array;
+    public function info(): array;
 }

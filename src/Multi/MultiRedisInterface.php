@@ -25,7 +25,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function set(string $key, $value, int $ttl) : MultiRedisInterface;
+    public function set(string $key, $value, int $ttl): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -34,28 +34,28 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function add(string $key, $value, int $ttl) : MultiRedisInterface;
+    public function add(string $key, $value, int $ttl): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function get(string $key) : MultiRedisInterface;
+    public function get(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function del(string $key) : MultiRedisInterface;
+    public function del(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function has(string $key) : MultiRedisInterface;
+    public function has(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -63,7 +63,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function expire(string $key, int $ttl) : MultiRedisInterface;
+    public function expire(string $key, int $ttl): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -71,7 +71,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function pSet(string $key, $value) : MultiRedisInterface;
+    public function pSet(string $key, $value): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -81,7 +81,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zAddMod(string $key, string $mode, int $score, $value) : MultiRedisInterface;
+    public function zAddMod(string $key, string $mode, int $score, $value): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -90,22 +90,14 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zAdd(string $key, int $score, $value) : MultiRedisInterface;
+    public function zAdd(string $key, int $score, $value): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function zCard(string $key) : MultiRedisInterface;
-
-    /**
-     * @param string $key
-     * @param string $member
-     *
-     * @return MultiRedisInterface
-     */
-    public function zRank(string $key, string $member) : MultiRedisInterface;
+    public function zCard(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -113,7 +105,15 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRevRank(string $key, string $member) : MultiRedisInterface;
+    public function zRank(string $key, string $member): MultiRedisInterface;
+
+    /**
+     * @param string $key
+     * @param string $member
+     *
+     * @return MultiRedisInterface
+     */
+    public function zRevRank(string $key, string $member): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -122,7 +122,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zCount(string $key, int $fromScore, int $toScore) : MultiRedisInterface;
+    public function zCount(string $key, int $fromScore, int $toScore): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -131,7 +131,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zIncrBy(string $key, float $score, string $member) : MultiRedisInterface;
+    public function zIncrBy(string $key, float $score, string $member): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -139,7 +139,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zDelete(string $key, string $member) : MultiRedisInterface;
+    public function zDelete(string $key, string $member): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -148,7 +148,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zDeleteRangeByScore(string $key, int $fromScore, int $toScore) : MultiRedisInterface;
+    public function zDeleteRangeByScore(string $key, int $fromScore, int $toScore): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -157,7 +157,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRemRangeByRank(string $key, int $start, int $stop) : MultiRedisInterface;
+    public function zRemRangeByRank(string $key, int $start, int $stop): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -166,7 +166,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRemRangeByScore(string $key, int $fromScore, int $toScore) : MultiRedisInterface;
+    public function zRemRangeByScore(string $key, int $fromScore, int $toScore): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -174,7 +174,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zScore(string $key, string $member) : MultiRedisInterface;
+    public function zScore(string $key, string $member): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -183,7 +183,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRange(string $key, int $from, int $to) : MultiRedisInterface;
+    public function zRange(string $key, int $from, int $to): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -192,7 +192,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRevRange(string $key, int $from, int $to) : MultiRedisInterface;
+    public function zRevRange(string $key, int $from, int $to): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -201,7 +201,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRevRangeWithScores(string $key, int $from, int $to) : MultiRedisInterface;
+    public function zRevRangeWithScores(string $key, int $from, int $to): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -216,7 +216,7 @@ interface MultiRedisInterface
         int $fromScore,
         int $toScore,
         array $options = []
-    ) : MultiRedisInterface;
+    ): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -233,7 +233,7 @@ interface MultiRedisInterface
         int $toScore,
         int $offset,
         int $count
-    ) : MultiRedisInterface;
+    ): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -243,7 +243,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function zRangeByScore(string $key, int $fromScore, int $toScore, array $options = []) : MultiRedisInterface;
+    public function zRangeByScore(string $key, int $fromScore, int $toScore, array $options = []): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -251,30 +251,35 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function sAdd(string $key, string $member) : MultiRedisInterface;
+    public function sAdd(string $key, string $member): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function sCard(string $key) : MultiRedisInterface;
+    public function sCard(string $key): MultiRedisInterface;
 
     /**
-     * @param string $key1
-     * @param string $key2
+     * @param array $keys
      *
      * @return MultiRedisInterface
      */
-    public function sDiff(string $key1, string $key2) : MultiRedisInterface;
+    public function sDiff(array $keys): MultiRedisInterface;
 
     /**
-     * @param string $key1
-     * @param string $key2
+     * @param array $keys
      *
      * @return MultiRedisInterface
      */
-    public function sInter(string $key1, string $key2) : MultiRedisInterface;
+    public function sInter(array $keys): MultiRedisInterface;
+
+    /**
+     * @param array $keys
+     *
+     * @return MultiRedisInterface
+     */
+    public function sUnion(array $keys): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -282,14 +287,14 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function sIsMember(string $key, string $member) : MultiRedisInterface;
+    public function sIsMember(string $key, string $member): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function sMembers(string $key) : MultiRedisInterface;
+    public function sMembers(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -297,7 +302,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function sRem(string $key, string $member) : MultiRedisInterface;
+    public function sRem(string $key, string $member): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -305,14 +310,14 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function append(string $key, string $value) : MultiRedisInterface;
+    public function append(string $key, string $value): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function decr(string $key) : MultiRedisInterface;
+    public function decr(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -320,7 +325,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function decrBy(string $key, int $value) : MultiRedisInterface;
+    public function decrBy(string $key, int $value): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -329,14 +334,14 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function getRange(string $key, int $from, int $to) : MultiRedisInterface;
+    public function getRange(string $key, int $from, int $to): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function incr(string $key) : MultiRedisInterface;
+    public function incr(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -344,21 +349,21 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function incrBy(string $key, int $value) : MultiRedisInterface;
+    public function incrBy(string $key, int $value): MultiRedisInterface;
 
     /**
      * @param array $keys
      *
      * @return MultiRedisInterface
      */
-    public function mGet(array $keys) : MultiRedisInterface;
+    public function mGet(array $keys): MultiRedisInterface;
 
     /**
      * @param array $keysAndValues
      *
      * @return MultiRedisInterface
      */
-    public function mSet(array $keysAndValues) : MultiRedisInterface;
+    public function mSet(array $keysAndValues): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -367,7 +372,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function setEx(string $key, $value, int $ttl) : MultiRedisInterface;
+    public function setEx(string $key, $value, int $ttl): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -375,22 +380,22 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function setNx(string $key, $value) : MultiRedisInterface;
+    public function setNx(string $key, $value): MultiRedisInterface;
 
     /**
      * @return MultiRedisInterface
      */
-    public function pipeline() : MultiRedisInterface;
+    public function pipeline(): MultiRedisInterface;
 
     /**
      * @return MultiRedisInterface
      */
-    public function multi() : MultiRedisInterface;
+    public function multi(): MultiRedisInterface;
 
     /**
      * @return array
      */
-    public function exec() : array;
+    public function exec(): array;
 
     /**
      * @param string $oldName
@@ -398,7 +403,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function rename(string $oldName, string $newName) : MultiRedisInterface;
+    public function rename(string $oldName, string $newName): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -406,7 +411,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function hDel(string $key, string $field) : MultiRedisInterface;
+    public function hDel(string $key, string $field): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -414,14 +419,14 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function hGet(string $key, string $field) : MultiRedisInterface;
+    public function hGet(string $key, string $field): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function hGetAll(string $key) : MultiRedisInterface;
+    public function hGetAll(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -429,7 +434,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function hSetAll(string $key, array $keysAndValues) : MultiRedisInterface;
+    public function hSetAll(string $key, array $keysAndValues): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -438,7 +443,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function hSet(string $key, string $field, $value) : MultiRedisInterface;
+    public function hSet(string $key, string $field, $value): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -447,7 +452,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function hSetNx(string $key, string $field, $value) : MultiRedisInterface;
+    public function hSetNx(string $key, string $field, $value): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -455,7 +460,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function hExists(string $key, string $field) : MultiRedisInterface;
+    public function hExists(string $key, string $field): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -464,7 +469,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function hIncrBy(string $key, string $field, int $value) : MultiRedisInterface;
+    public function hIncrBy(string $key, string $field, int $value): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -473,14 +478,14 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function hIncrByFloat(string $key, string $field, float $floatValue) : MultiRedisInterface;
+    public function hIncrByFloat(string $key, string $field, float $floatValue): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function hVals(string $key) : MultiRedisInterface;
+    public function hVals(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -488,7 +493,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function lIndex(string $key, int $index) : MultiRedisInterface;
+    public function lIndex(string $key, int $index): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -498,29 +503,21 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function lInsert(string $key, int $index, string $pivot, $value) : MultiRedisInterface;
+    public function lInsert(string $key, int $index, string $pivot, $value): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function lLen(string $key) : MultiRedisInterface;
+    public function lLen(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function lPop(string $key) : MultiRedisInterface;
-
-    /**
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return MultiRedisInterface
-     */
-    public function lPush(string $key, $value) : MultiRedisInterface;
+    public function lPop(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -528,7 +525,15 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function lPushNx(string $key, $value) : MultiRedisInterface;
+    public function lPush(string $key, $value): MultiRedisInterface;
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return MultiRedisInterface
+     */
+    public function lPushNx(string $key, $value): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -537,7 +542,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function lRange(string $key, int $start, int $stop) : MultiRedisInterface;
+    public function lRange(string $key, int $start, int $stop): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -546,7 +551,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function lRem(string $key, $reference, int $count) : MultiRedisInterface;
+    public function lRem(string $key, $reference, int $count): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -555,7 +560,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function lSet(string $key, int $index, $value) : MultiRedisInterface;
+    public function lSet(string $key, int $index, $value): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -564,22 +569,14 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function lTrim(string $key, int $start, int $stop) : MultiRedisInterface;
+    public function lTrim(string $key, int $start, int $stop): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function rPop(string $key) : MultiRedisInterface;
-
-    /**
-     * @param string $key
-     * @param mixed  $value
-     *
-     * @return MultiRedisInterface
-     */
-    public function rPush(string $key, $value) : MultiRedisInterface;
+    public function rPop(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -587,26 +584,34 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function rPushNx(string $key, $value) : MultiRedisInterface;
+    public function rPush(string $key, $value): MultiRedisInterface;
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return MultiRedisInterface
+     */
+    public function rPushNx(string $key, $value): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function ttl(string $key) : MultiRedisInterface;
+    public function ttl(string $key): MultiRedisInterface;
 
     /**
      * @param string $key
      *
      * @return MultiRedisInterface
      */
-    public function watch(string $key) : MultiRedisInterface;
+    public function watch(string $key): MultiRedisInterface;
 
     /**
      * @return MultiRedisInterface
      */
-    public function unwatch() : MultiRedisInterface;
+    public function unwatch(): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -614,12 +619,12 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function expireAt(string $key, int $ttl) : MultiRedisInterface;
+    public function expireAt(string $key, int $ttl): MultiRedisInterface;
 
     /**
      * @return MultiRedisInterface
      */
-    public function flush() : MultiRedisInterface;
+    public function flush(): MultiRedisInterface;
 
     /**
      * @param string $query
@@ -628,10 +633,10 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function runQuery($query, array $bindParams, array $bindTypes = []) : MultiRedisInterface;
+    public function runQuery($query, array $bindParams, array $bindTypes = []): MultiRedisInterface;
 
     /**
      * @return MultiRedisInterface
      */
-    public function info() : MultiRedisInterface;
+    public function info(): MultiRedisInterface;
 }
