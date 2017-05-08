@@ -76,7 +76,7 @@ class CRedisConnection extends AbstractConnection
     /**
      * @inheritDoc
      */
-    public function establish()
+    public function doEstablish()
     {
         list ($host, $port, $db, $password, $serializer) = $this->getCredentials($this->getConfigData());
 
