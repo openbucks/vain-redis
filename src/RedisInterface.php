@@ -591,6 +591,11 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
     public function flush(): RedisInterface;
 
     /**
+     * @return RedisInterface
+     */
+    public function flushAll() : RedisInterface;
+
+    /**
      * @return array
      */
     public function info(): array;

@@ -848,6 +848,16 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
+    public function flushAll() : RedisInterface
+    {
+        $this->getConnection()->flushAll();
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function runQuery($query, array $bindParams, array $bindTypes = []): DatabaseGeneratorInterface
     {
         throw new BadMethodRedisException($this, __METHOD__);
