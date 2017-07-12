@@ -292,7 +292,15 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
      */
     public function zCount(string $key, string $fromScore, string $toScore): int
     {
-        $result = $this->getConnection()->zCount($key, $fromScore, $toScore);
+        if (-1 === $fromScore) {
+            $fromScore = '-inf';
+        }
+
+        if (-1 === $toScore) {
+            $toScore = '+inf';
+        }
+
+        $result = $this->getConnection()->zCount($key, (string)$fromScore, (string)$toScore);
 
         return $this->multi ? 0 : $result;
     }
