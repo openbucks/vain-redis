@@ -275,11 +275,27 @@ interface MultiRedisInterface
     public function sInter(array $keys): MultiRedisInterface;
 
     /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return MultiRedisInterface
+     */
+    public function sInterStore(string $destination, array $keys) : MultiRedisInterface;
+
+    /**
      * @param array $keys
      *
      * @return MultiRedisInterface
      */
     public function sUnion(array $keys): MultiRedisInterface;
+
+    /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return MultiRedisInterface
+     */
+    public function sUnionStore(string $destination, array $keys) : MultiRedisInterface;
 
     /**
      * @param string $key
@@ -303,6 +319,29 @@ interface MultiRedisInterface
      * @return MultiRedisInterface
      */
     public function sRem(string $key, string $member): MultiRedisInterface;
+
+    /**
+     * @param string $key
+     * @param        $element
+     *
+     * @return MultiRedisInterface
+     */
+    public function pfAdd(string $key, $element) : MultiRedisInterface;
+
+    /**
+     * @param string $key
+     *
+     * @return MultiRedisInterface
+     */
+    public function pfCount(string $key) : MultiRedisInterface;
+
+    /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return MultiRedisInterface
+     */
+    public function pfMerge(string $destination, array $keys): MultiRedisInterface;
 
     /**
      * @param string $key

@@ -393,11 +393,31 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
+    public function sInterStore(string $destination, array $keys) : int
+    {
+        $result = $this->getConnection()->sInterStore($destination, ...$keys);
+
+        return $this->multi ? 0 : $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function sUnion(array $keys) : array
     {
         $result = $this->getConnection()->sUnion(...$keys);
 
         return $this->multi ? [] : $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function sUnionStore(string $destination, array $keys) : int
+    {
+        $result = $this->getConnection()->sUnionStore($destination, ...$keys);
+
+        return $this->multi ? 0 : $result;
     }
 
     /**
@@ -428,6 +448,36 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
         $result = $this->getConnection()->sRem($key, $member);
 
         return $this->multi ? true : (1 === $result);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function pfAdd(string $key, $element): bool
+    {
+        $result = $this->getConnection()->pfAdd($key, $element);
+
+        return $this->multi ? true : $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function pfCount(string $key): int
+    {
+        $result = $this->getConnection()->pfCount($key);
+
+        return $this->multi ? 1 : $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function pfMerge(string $destination, array $keys): bool
+    {
+        $this->getConnection()->pfMerge($destination, $keys);
+
+        return true;
     }
 
     /**

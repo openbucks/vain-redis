@@ -231,11 +231,27 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
     public function sInter(array $keys): array;
 
     /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return int
+     */
+    public function sInterStore(string $destination, array $keys) : int;
+
+    /**
      * @param array $keys
      *
      * @return array
      */
     public function sUnion(array $keys): array;
+
+    /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return int
+     */
+    public function sUnionStore(string $destination, array $keys) : int;
 
     /**
      * @param string $key
@@ -551,6 +567,29 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      * @return bool
      */
     public function rPushNx(string $key, $value): bool;
+
+    /**
+     * @param string $key
+     * @param        $element
+     *
+     * @return bool
+     */
+    public function pfAdd(string $key, $element) : bool;
+
+    /**
+     * @param string $key
+     *
+     * @return int
+     */
+    public function pfCount(string $key) : int;
+
+    /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return bool
+     */
+    public function pfMerge(string $destination, array $keys): bool;
 
     /**
      * @param string $key
