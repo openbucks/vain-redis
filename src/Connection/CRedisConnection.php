@@ -90,7 +90,7 @@ class CRedisConnection extends AbstractConnection
         }
         $redis->select($db);
 
-        if (false === $redis->script('exists', sha1(self::REDIS_ZADD_XX_NX))) {
+        if ([0] === $redis->script('exists', sha1(self::REDIS_ZADD_XX_NX))) {
             $redis->script('load', self::REDIS_ZADD_XX_NX);
         }
 
