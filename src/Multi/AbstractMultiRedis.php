@@ -393,7 +393,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
      */
     public function sInterStore(string $destination, array $keys) : MultiRedisInterface
     {
-        $this->redis->sInterStore($destination, ...$keys);
+        $this->redis->sInterStore($destination, $keys);
 
         return $this;
     }
@@ -414,7 +414,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
      */
     public function sUnionStore(string $destination, array $keys) : MultiRedisInterface
     {
-        $this->redis->sUnionStore($destination, ...$keys);
+        $this->redis->sUnionStore($destination, $keys);
 
         return $this;
     }
