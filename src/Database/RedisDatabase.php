@@ -128,7 +128,32 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     {
         if (false !== $this->getConnection()
                 ->evalSha(
-                    sha1(CRedisConnection::REDIS_ZADD_XX_NX),
+                    sha1(CRedisConnection::scripts['zAddXXNX']),
+                               [
+                                   $this->getConnection()->_prefix(
+                                       $key
+                                   ),
+                                   $mode,
+                                   $score,
+                                   $value,
+                               ],
+                               1
+                           )
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function zAddCond(string $key, string $mode, int $score, $value): bool
+    {
+        if (false !== $this->getConnection()
+                           ->evalSha(
+                               sha1(CRedisConnection::scripts['zAddCond']),
                     [
                         $this->getConnection()->_prefix(
                             $key

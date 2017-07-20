@@ -21,7 +21,21 @@ use Vain\Core\Exception\NoRequiredFieldException;
  */
 class CRedisConnection extends AbstractConnection
 {
-    const REDIS_ZADD_XX_NX = "return redis.call('zAdd', KEYS[1], ARGV[1], ARGV[2], ARGV[3])";
+
+    const scripts = [
+        'zAddXXNX' => 'return redis.call(\'zAdd\', KEYS[1], ARGV[1], ARGV[2], ARGV[3])',
+        'zAddCond' => '
+                    local score = redis.call("zScore", KEY[1], ARGV[2]);
+                    if score == false then
+                        return redis.call("zAdd", KEY[1], ARGV[2], ARGV[3]);
+                    end
+                    if (ARGV[1] == "LT" and score > ARGV[2]) or (ARGV[1] == "GT" and score < ARGV[2]) then
+                        return redis.call("zAdd", KEY[1], \'XX\', ARGV[2], ARGV[3]);
+                    end
+
+                    return 0;
+        '
+    ];
 
     /**
      * @param array $config
@@ -90,8 +104,10 @@ class CRedisConnection extends AbstractConnection
         }
         $redis->select($db);
 
-        if ([0] === $redis->script('exists', sha1(self::REDIS_ZADD_XX_NX))) {
-            $redis->script('load', self::REDIS_ZADD_XX_NX);
+        foreach (self::scripts as $script) {
+            if ([0] === $redis->script('exists', sha1($script))) {
+                $redis->script('load', $script);
+            }
         }
 
         return $redis;
