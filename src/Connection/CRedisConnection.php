@@ -23,18 +23,18 @@ class CRedisConnection extends AbstractConnection
 {
 
     const scripts = [
-        'zAddXXNX' => 'return redis.call(\'zAdd\', KEYS[1], ARGV[1], ARGV[2], ARGV[3])',
+        'zAddXXNX' => 'return redis.call(\'zAdd\', KEYS[1], ARGV[1], ARGV[2], ARGV[3])', // 185a09d32f70bd6274c081aafe6a2141aee0687e
         'zAddCond' => '
-                    local score = redis.call("zScore", KEY[1], ARGV[2]);
+                    local score = redis.call("zScore", KEYS[1], ARGV[3]);
                     if score == false then
-                        return redis.call("zAdd", KEY[1], ARGV[2], ARGV[3]);
+                        return redis.call("zAdd", KEYS[1], "CH", ARGV[2], ARGV[3]);
                     end
                     if (ARGV[1] == "LT" and score > ARGV[2]) or (ARGV[1] == "GT" and score < ARGV[2]) then
-                        return redis.call("zAdd", KEY[1], \'XX\', ARGV[2], ARGV[3]);
+                        return redis.call("zAdd", KEYS[1], "XX", "CH", ARGV[2], ARGV[3]);
                     end
 
                     return 0;
-        '
+        ' // bb8049d9b393db5b35998e1ed05c0913bff0a683
     ];
 
     /**
