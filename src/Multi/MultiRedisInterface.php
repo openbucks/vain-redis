@@ -85,6 +85,16 @@ interface MultiRedisInterface
 
     /**
      * @param string $key
+     * @param string $mode
+     * @param int    $score
+     * @param mixed  $value
+     *
+     * @return MultiRedisInterface
+     */
+    public function zAddCond(string $key, string $mode, int $score, $value): MultiRedisInterface;
+
+    /**
+     * @param string $key
      * @param int    $score
      * @param mixed  $value
      *

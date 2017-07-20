@@ -8,7 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-cache
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vain\Redis;
 
@@ -49,6 +49,16 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      * @return mixed
      */
     public function zAddMod(string $key, string $mode, int $score, $value): bool;
+
+    /**
+     * @param string $key
+     * @param string $mode
+     * @param int    $score
+     * @param mixed  $value
+     *
+     * @return bool
+     */
+    public function zAddCond(string $key, string $mode, int $score, $value): bool;
 
     /**
      * @param string $key
@@ -236,7 +246,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function sInterStore(string $destination, array $keys) : int;
+    public function sInterStore(string $destination, array $keys): int;
 
     /**
      * @param array $keys
@@ -251,7 +261,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return int
      */
-    public function sUnionStore(string $destination, array $keys) : int;
+    public function sUnionStore(string $destination, array $keys): int;
 
     /**
      * @param string $key
@@ -574,14 +584,14 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      *
      * @return bool
      */
-    public function pfAdd(string $key, $element) : bool;
+    public function pfAdd(string $key, $element): bool;
 
     /**
      * @param string $key
      *
      * @return int
      */
-    public function pfCount(string $key) : int;
+    public function pfCount(string $key): int;
 
     /**
      * @param string $destination
@@ -626,7 +636,7 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
     /**
      * @return RedisInterface
      */
-    public function flushAll() : RedisInterface;
+    public function flushAll(): RedisInterface;
 
     /**
      * @return array

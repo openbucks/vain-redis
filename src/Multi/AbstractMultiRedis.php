@@ -162,6 +162,16 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
+    public function zAddCond(string $key, string $mode, int $score, $value): MultiRedisInterface
+    {
+        $this->redis->zAddCond($key, $mode, $score, $value);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function zAdd(string $key, int $score, $value) : MultiRedisInterface
     {
         $this->redis->zAdd($key, $score, $value);
