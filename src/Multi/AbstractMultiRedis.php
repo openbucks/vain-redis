@@ -162,6 +162,16 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
+    public function zAddCond(string $key, string $mode, int $score, $value): MultiRedisInterface
+    {
+        $this->redis->zAddCond($key, $mode, $score, $value);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function zAdd(string $key, int $score, $value) : MultiRedisInterface
     {
         $this->redis->zAdd($key, $score, $value);
@@ -389,9 +399,30 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
+    public function sInterStore(string $destination, array $keys) : MultiRedisInterface
+    {
+        $this->redis->sInterStore($destination, $keys);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function sUnion(array $keys) : MultiRedisInterface
     {
         $this->redis->sUnion($keys);
+
+        return $this;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function sUnionStore(string $destination, array $keys) : MultiRedisInterface
+    {
+        $this->redis->sUnionStore($destination, $keys);
 
         return $this;
     }
@@ -422,6 +453,36 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     public function sRem(string $key, string $member) : MultiRedisInterface
     {
         $this->redis->sRem($key, $member);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function pfAdd(string $key, $element): MultiRedisInterface
+    {
+        $this->redis->pfAdd($key, $element);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function pfCount(string $key): MultiRedisInterface
+    {
+        $this->redis->pfCount($key);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function pfMerge(string $destination, array $keys): MultiRedisInterface
+    {
+        $this->redis->pfMerge($destination, $keys);
 
         return $this;
     }
