@@ -485,7 +485,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
      */
     public function pfAdd(string $key, $element): bool
     {
-        $result = $this->getConnection()->pfAdd($key, $element);
+        $result = $this->getConnection()->pfAdd($key, [$element]);
 
         return $this->multi ? true : $result;
     }
