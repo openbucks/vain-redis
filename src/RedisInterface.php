@@ -8,7 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-cache
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vain\Redis;
 
@@ -84,12 +84,12 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      *
      * @return int
      */
-    public function zCount(string $key, int $fromScore, int $toScore): int;
+    public function zCount(string $key, string $fromScore, string $toScore): int;
 
     /**
      * @param string $key
@@ -110,12 +110,12 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      *
      * @return int
      */
-    public function zDeleteRangeByScore(string $key, int $fromScore, int $toScore): int;
+    public function zDeleteRangeByScore(string $key, string $fromScore, string $toScore): int;
 
     /**
      * @param string $key
@@ -128,12 +128,12 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      *
      * @return int
      */
-    public function zRemRangeByScore(string $key, int $fromScore, int $toScore): int;
+    public function zRemRangeByScore(string $key, string $fromScore, string $toScore): int;
 
     /**
      * @param string $key
@@ -172,34 +172,40 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      * @param array  $options
      *
      * @return array
      */
-    public function zRevRangeByScore(string $key, int $fromScore, int $toScore, array $options = []): array;
+    public function zRevRangeByScore(string $key, string $fromScore, string $toScore, array $options = []): array;
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      * @param int    $offset
      * @param int    $count
      *
      * @return array
      */
-    public function zRevRangeByScoreLimit(string $key, int $fromScore, int $toScore, int $offset, int $count): array;
+    public function zRevRangeByScoreLimit(
+        string $key,
+        string $fromScore,
+        string $toScore,
+        int $offset,
+        int $count
+    ): array;
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      * @param array  $options
      *
      * @return array
      */
-    public function zRangeByScore(string $key, int $fromScore, int $toScore, array $options = []): array;
+    public function zRangeByScore(string $key, string $fromScore, string $toScore, array $options = []): array;
 
     /**
      * @param string $key
