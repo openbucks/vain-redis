@@ -40,7 +40,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
         if (0 === $ttl) {
             $result = $this->getConnection()->set($key, $value);
         } else {
-            $result = $this->getConnection()->set($key, $value, $ttl);
+            $result = $this->getConnection()->setex($key, $ttl, $value);
         }
 
 
