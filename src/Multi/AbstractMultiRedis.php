@@ -70,7 +70,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function set(string $key, $value, int $ttl) : MultiRedisInterface
+    public function set(string $key, $value, int $ttl = 0): MultiRedisInterface
     {
         $this->redis->set($key, $value, $ttl);
 

@@ -35,9 +35,14 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function set(string $key, $value, int $ttl) : bool
+    public function set(string $key, $value, int $ttl = 0): bool
     {
-        $result = $this->getConnection()->set($key, $value, $ttl);
+        if (0 === $ttl) {
+            $result = $this->getConnection()->set($key, $value);
+        } else {
+            $result = $this->getConnection()->set($key, $value, $ttl);
+        }
+
 
         return $this->multi ? true : $result;
     }

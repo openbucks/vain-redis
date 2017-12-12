@@ -25,7 +25,7 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
-    public function set(string $key, $value, int $ttl): MultiRedisInterface;
+    public function set(string $key, $value, int $ttl = 0): MultiRedisInterface;
 
     /**
      * @param string $key
