@@ -8,7 +8,7 @@
  * @license   https://opensource.org/licenses/MIT MIT License
  * @link      https://github.com/allflame/vain-cache
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Vain\Redis\Database;
 
@@ -62,7 +62,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function del(string $key) : bool
+    public function del(string $key): bool
     {
         $result = $this->getConnection()->del($key);
 
@@ -72,7 +72,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function has(string $key) : bool
+    public function has(string $key): bool
     {
         $result = $this->getConnection()->exists($key);
 
@@ -82,7 +82,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function ttl(string $key) : int
+    public function ttl(string $key): int
     {
         $result = $this->getConnection()->ttl($key);
         if (false === $result) {
@@ -95,7 +95,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function expire(string $key, int $ttl) : bool
+    public function expire(string $key, int $ttl): bool
     {
         $result = $this->getConnection()->expire($key, $ttl);
 
@@ -105,7 +105,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function pSet(string $key, $value) : bool
+    public function pSet(string $key, $value): bool
     {
         $result = $this->getConnection()->set($key, $value);
 
@@ -115,7 +115,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function add(string $key, $value, int $ttl) : bool
+    public function add(string $key, $value, int $ttl): bool
     {
         $result = $this
             ->multi()
@@ -129,7 +129,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zAddMod(string $key, string $mode, int $score, $value) : bool
+    public function zAddMod(string $key, string $mode, int $score, $value): bool
     {
         if (false !== $this->getConnection()
                            ->evalSha(
@@ -159,16 +159,16 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
         if (false !== $this->getConnection()
                            ->evalSha(
                                sha1(CRedisConnection::scripts['zAddCond']),
-                               [
-                                   $this->getConnection()->_prefix(
-                                       $key
-                                   ),
-                                   $mode,
-                                   $score,
-                                   $value,
-                               ],
-                               1
-                           )
+                    [
+                        $this->getConnection()->_prefix(
+                            $key
+                        ),
+                        $mode,
+                        $score,
+                        $value,
+                    ],
+                    1
+                )
         ) {
             return true;
         }
@@ -179,7 +179,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zAdd(string $key, int $score, $value) : bool
+    public function zAdd(string $key, int $score, $value): bool
     {
         $result = $this->getConnection()->zAdd($key, $score, $value);
 
@@ -189,7 +189,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zDelete(string $key, string $member) : bool
+    public function zDelete(string $key, string $member): bool
     {
         $result = $this->getConnection()->zDelete($key, $member);
 
@@ -199,7 +199,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zDeleteRangeByScore(string $key, int $fromScore, int $toScore) : int
+    public function zDeleteRangeByScore(string $key, string $fromScore, string $toScore): int
     {
         return $this->zRemRangeByScore($key, $fromScore, $toScore);
     }
@@ -207,7 +207,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRemRangeByScore(string $key, int $fromScore, int $toScore) : int
+    public function zRemRangeByScore(string $key, string $fromScore, string $toScore): int
     {
         $result = $this->getConnection()->zRemRangeByScore($key, $fromScore, $toScore);
 
@@ -217,7 +217,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRemRangeByRank(string $key, int $start, int $stop) : int
+    public function zRemRangeByRank(string $key, int $start, int $stop): int
     {
         $result = $this->getConnection()->zRemRangeByRank($key, $start, $stop);
 
@@ -227,7 +227,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRangeByScore(string $key, int $fromScore, int $toScore, array $options = []) : array
+    public function zRevRangeByScore(string $key, string $fromScore, string $toScore, array $options = []): array
     {
         $cRedisOptions[self::WITH_SCORES] = array_key_exists(self::WITH_SCORES, $options) ? true : false;
 
@@ -247,14 +247,19 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRangeByScoreLimit(string $key, int $fromScore, int $toScore, int $offset, int $count) : array
-    {
+    public function zRevRangeByScoreLimit(
+        string $key,
+        string $fromScore,
+        string $toScore,
+        int $offset,
+        int $count
+    ): array {
         return $this->zRevRangeByScore(
             $key,
             $fromScore,
             $toScore,
             [
-                self::ZRANGE_LIMIT  => $count,
+                self::ZRANGE_LIMIT => $count,
                 self::ZRANGE_OFFSET => $offset,
             ]
         );
@@ -263,7 +268,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRangeByScore(string $key, int $fromScore, int $toScore, array $options = []) : array
+    public function zRangeByScore(string $key, string $fromScore, string $toScore, array $options = []): array
     {
         $cRedisOptions[self::WITH_SCORES] = array_key_exists(self::WITH_SCORES, $options)
             ? $options[self::WITH_SCORES]
@@ -285,7 +290,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zCard(string $key) : int
+    public function zCard(string $key): int
     {
         $result = $this->getConnection()->zCard($key);
 
@@ -295,7 +300,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRank(string $key, string $member) : int
+    public function zRank(string $key, string $member): int
     {
         $result = $this->getConnection()->zRank($key, $member);
 
@@ -305,7 +310,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRank(string $key, string $member) : int
+    public function zRevRank(string $key, string $member): int
     {
         $result = $this->getConnection()->zRevRank($key, $member);
 
@@ -315,7 +320,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zCount(string $key, int $fromScore, int $toScore) : int
+    public function zCount(string $key, string $fromScore, string $toScore): int
     {
         if (-1 === $fromScore) {
             $fromScore = '-inf';
@@ -333,7 +338,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zIncrBy(string $key, float $score, string $member) : float
+    public function zIncrBy(string $key, float $score, string $member): float
     {
         $result = $this->getConnection()->zIncrBy($key, $score, $member);
 
@@ -343,7 +348,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zScore(string $key, string $member) : float
+    public function zScore(string $key, string $member): float
     {
         $result = $this->getConnection()->zScore($key, $member);
 
@@ -353,7 +358,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRange(string $key, int $from, int $to) : array
+    public function zRange(string $key, int $from, int $to): array
     {
         $result = $this->getConnection()->zRange($key, $from, $to);
 
@@ -363,7 +368,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRange(string $key, int $from, int $to) : array
+    public function zRevRange(string $key, int $from, int $to): array
     {
         $result = $this->getConnection()->zRevRange($key, $from, $to);
 
@@ -373,7 +378,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRangeWithScores(string $key, int $from, int $to) : array
+    public function zRevRangeWithScores(string $key, int $from, int $to): array
     {
         $result = $this->getConnection()->zRevRange($key, $from, $to, true);
 
@@ -383,7 +388,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sAdd(string $key, string $member) : bool
+    public function sAdd(string $key, string $member): bool
     {
         $result = $this->getConnection()->sAdd($key, $member);
 
@@ -393,7 +398,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sCard(string $key) : int
+    public function sCard(string $key): int
     {
         $result = $this->getConnection()->sCard($key);
 
@@ -403,7 +408,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sDiff(array $keys) : array
+    public function sDiff(array $keys): array
     {
         $result = $this->getConnection()->sDiff(...$keys);
 
@@ -413,7 +418,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sInter(array $keys) : array
+    public function sInter(array $keys): array
     {
         $result = $this->getConnection()->sInter(...$keys);
 
@@ -433,7 +438,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sUnion(array $keys) : array
+    public function sUnion(array $keys): array
     {
         $result = $this->getConnection()->sUnion(...$keys);
 
@@ -453,7 +458,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sIsMember(string $key, string $member) : bool
+    public function sIsMember(string $key, string $member): bool
     {
         $result = $this->getConnection()->sIsMember($key, $member);
 
@@ -463,7 +468,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sMembers(string $key) : array
+    public function sMembers(string $key): array
     {
         $result = $this->getConnection()->sMembers($key);
 
@@ -473,7 +478,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function sRem(string $key, string $member) : bool
+    public function sRem(string $key, string $member): bool
     {
         $result = $this->getConnection()->sRem($key, $member);
 
@@ -513,7 +518,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function append(string $key, string $value) : bool
+    public function append(string $key, string $value): bool
     {
         $result = $this->getConnection()->append($key, $value);
 
@@ -523,7 +528,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function decr(string $key) : int
+    public function decr(string $key): int
     {
         $result = $this->getConnection()->decr($key);
 
@@ -533,7 +538,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function decrBy(string $key, int $value) : int
+    public function decrBy(string $key, int $value): int
     {
         $result = $this->getConnection()->decrBy($key, $value);
 
@@ -543,7 +548,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function getRange(string $key, int $from, int $to) : string
+    public function getRange(string $key, int $from, int $to): string
     {
         $result = $this->getConnection()->getRange($key, $from, $to);
 
@@ -553,7 +558,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function incr(string $key) : int
+    public function incr(string $key): int
     {
         $result = $this->getConnection()->incr($key);
 
@@ -563,7 +568,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function incrBy(string $key, int $value) : int
+    public function incrBy(string $key, int $value): int
     {
         $result = $this->getConnection()->incrBy($key, $value);
 
@@ -573,7 +578,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function mGet(array $keys) : array
+    public function mGet(array $keys): array
     {
         $result = $this->getConnection()->mget($keys);
 
@@ -583,7 +588,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function mSet(array $keysAndValues) : bool
+    public function mSet(array $keysAndValues): bool
     {
         $result = $this->getConnection()->mset($keysAndValues);
 
@@ -593,7 +598,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function setEx(string $key, $value, int $ttl) : bool
+    public function setEx(string $key, $value, int $ttl): bool
     {
         $result = $this->getConnection()->setex($key, $value, $ttl);
 
@@ -603,7 +608,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function setNx(string $key, $value) : bool
+    public function setNx(string $key, $value): bool
     {
         $result = $this->getConnection()->setnx($key, $value);
 
@@ -613,7 +618,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function pipeline() : MultiRedisInterface
+    public function pipeline(): MultiRedisInterface
     {
         $this->getConnection()->multi(\Redis::PIPELINE);
         $this->multi = true;
@@ -624,7 +629,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function multi() : MultiRedisInterface
+    public function multi(): MultiRedisInterface
     {
         $this->getConnection()->multi(\Redis::MULTI);
         $this->multi = true;
@@ -635,7 +640,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function exec(MultiRedisInterface $multiRedis) : array
+    public function exec(MultiRedisInterface $multiRedis): array
     {
         $this->multi = false;
 
@@ -645,7 +650,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function rename(string $oldName, string $newName) : bool
+    public function rename(string $oldName, string $newName): bool
     {
         $result = $this->getConnection()->rename($oldName, $newName);
 
@@ -655,7 +660,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hDel(string $key, string $field) : bool
+    public function hDel(string $key, string $field): bool
     {
         $result = $this->getConnection()->hDel($key, $field);
 
@@ -675,7 +680,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hGetAll(string $key) : array
+    public function hGetAll(string $key): array
     {
         $result = $this->getConnection()->hGetAll($key);
 
@@ -685,7 +690,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hSetAll(string $key, array $keysAndValues) : bool
+    public function hSetAll(string $key, array $keysAndValues): bool
     {
         $result = $this->getConnection()->hMset($key, $keysAndValues);
 
@@ -695,7 +700,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hSet(string $key, string $field, $value) : bool
+    public function hSet(string $key, string $field, $value): bool
     {
         $result = $this->getConnection()->hSet($key, $field, $value);
 
@@ -705,7 +710,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hSetNx(string $key, string $field, $value) : bool
+    public function hSetNx(string $key, string $field, $value): bool
     {
         $result = $this->getConnection()->hSetNx($key, $field, $value);
 
@@ -715,7 +720,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hExists(string $key, string $field) : bool
+    public function hExists(string $key, string $field): bool
     {
         $result = $this->getConnection()->hExists($key, $field);
 
@@ -725,7 +730,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hIncrBy(string $key, string $field, int $value) : int
+    public function hIncrBy(string $key, string $field, int $value): int
     {
         $result = $this->getConnection()->hIncrBy($key, $field, $value);
 
@@ -735,7 +740,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hIncrByFloat(string $key, string $field, float $floatValue) : float
+    public function hIncrByFloat(string $key, string $field, float $floatValue): float
     {
         $result = $this->getConnection()->hIncrByFloat($key, $field, $floatValue);
 
@@ -745,7 +750,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function hVals(string $key) : array
+    public function hVals(string $key): array
     {
         $result = $this->getConnection()->hVals($key);
 
@@ -755,7 +760,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lIndex(string $key, int $index) : string
+    public function lIndex(string $key, int $index): string
     {
         $result = $this->getConnection()->lIndex($key, $index);
 
@@ -765,7 +770,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lInsert(string $key, int $index, string $pivot, $value) : bool
+    public function lInsert(string $key, int $index, string $pivot, $value): bool
     {
         $result = $this->getConnection()->lInsert($key, $index, $pivot, $value);
 
@@ -775,7 +780,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lLen(string $key) : int
+    public function lLen(string $key): int
     {
         $result = $this->getConnection()->lLen($key);
 
@@ -795,7 +800,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lPush(string $key, $value) : bool
+    public function lPush(string $key, $value): bool
     {
         $result = $this->getConnection()->lPush($key, $value);
 
@@ -805,7 +810,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lPushNx(string $key, $value) : bool
+    public function lPushNx(string $key, $value): bool
     {
         $result = $this->getConnection()->lPushx($key, $value);
 
@@ -815,7 +820,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lRange(string $key, int $start, int $stop) : array
+    public function lRange(string $key, int $start, int $stop): array
     {
         $result = $this->getConnection()->lRange($key, $start, $stop);
 
@@ -825,7 +830,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lRem(string $key, $reference, int $count) : int
+    public function lRem(string $key, $reference, int $count): int
     {
         $result = $this->getConnection()->lRem($key, $reference, $count);
         if (false === $result) {
@@ -838,7 +843,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lSet(string $key, int $index, $value) : bool
+    public function lSet(string $key, int $index, $value): bool
     {
         $result = $this->getConnection()->lSet($key, $index, $value);
 
@@ -848,7 +853,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function lTrim(string $key, int $start, int $stop) : array
+    public function lTrim(string $key, int $start, int $stop): array
     {
         $result = $this->getConnection()->lTrim($key, $start, $stop);
         if (false === $result) {
@@ -871,7 +876,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function rPush(string $key, $value) : bool
+    public function rPush(string $key, $value): bool
     {
         $result = $this->getConnection()->rPush($key, $value);
 
@@ -881,7 +886,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function rPushNx(string $key, $value) : bool
+    public function rPushNx(string $key, $value): bool
     {
         $result = $this->getConnection()->rPushx($key, $value);
 
@@ -891,7 +896,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function watch(string $key) : RedisInterface
+    public function watch(string $key): RedisInterface
     {
         $this->getConnection()->watch($key);
 
@@ -901,7 +906,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function unwatch() : RedisInterface
+    public function unwatch(): RedisInterface
     {
         $this->getConnection()->unwatch();
 
@@ -911,7 +916,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function expireAt(string $key, int $ttl) : bool
+    public function expireAt(string $key, int $ttl): bool
     {
         $result = $this->getConnection()->expireAt($key, $ttl);
 
@@ -921,7 +926,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function flush() : RedisInterface
+    public function flush(): RedisInterface
     {
         $this->getConnection()->flushDB();
 
@@ -941,7 +946,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function runQuery($query, array $bindParams, array $bindTypes = []) : DatabaseGeneratorInterface
+    public function runQuery($query, array $bindParams, array $bindTypes = []): DatabaseGeneratorInterface
     {
         throw new BadMethodRedisException($this, __METHOD__);
     }
@@ -949,7 +954,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function info() : array
+    public function info(): array
     {
         return $this->getConnection()->info();
     }

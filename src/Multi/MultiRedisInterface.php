@@ -127,12 +127,12 @@ interface MultiRedisInterface
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      *
      * @return MultiRedisInterface
      */
-    public function zCount(string $key, int $fromScore, int $toScore): MultiRedisInterface;
+    public function zCount(string $key, string $fromScore, string $toScore): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -153,12 +153,12 @@ interface MultiRedisInterface
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      *
      * @return MultiRedisInterface
      */
-    public function zDeleteRangeByScore(string $key, int $fromScore, int $toScore): MultiRedisInterface;
+    public function zDeleteRangeByScore(string $key, string $fromScore, string $toScore): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -171,12 +171,12 @@ interface MultiRedisInterface
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      *
      * @return MultiRedisInterface
      */
-    public function zRemRangeByScore(string $key, int $fromScore, int $toScore): MultiRedisInterface;
+    public function zRemRangeByScore(string $key, string $fromScore, string $toScore): MultiRedisInterface;
 
     /**
      * @param string $key
@@ -215,23 +215,23 @@ interface MultiRedisInterface
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      * @param array  $options
      *
      * @return MultiRedisInterface
      */
     public function zRevRangeByScore(
         string $key,
-        int $fromScore,
-        int $toScore,
+        string $fromScore,
+        string $toScore,
         array $options = []
     ): MultiRedisInterface;
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      * @param int    $offset
      * @param int    $count
      *
@@ -239,21 +239,26 @@ interface MultiRedisInterface
      */
     public function zRevRangeByScoreLimit(
         string $key,
-        int $fromScore,
-        int $toScore,
+        string $fromScore,
+        string $toScore,
         int $offset,
         int $count
     ): MultiRedisInterface;
 
     /**
      * @param string $key
-     * @param int    $fromScore
-     * @param int    $toScore
+     * @param string $fromScore
+     * @param string $toScore
      * @param array  $options
      *
      * @return MultiRedisInterface
      */
-    public function zRangeByScore(string $key, int $fromScore, int $toScore, array $options = []): MultiRedisInterface;
+    public function zRangeByScore(
+        string $key,
+        string $fromScore,
+        string $toScore,
+        array $options = []
+    ): MultiRedisInterface;
 
     /**
      * @param string $key

@@ -38,7 +38,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @return int
      */
-    protected function increaseLevel() : int
+    protected function increaseLevel(): int
     {
         return ++$this->level;
     }
@@ -46,7 +46,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @return int
      */
-    protected function decreaseLevel() : int
+    protected function decreaseLevel(): int
     {
         return --$this->level;
     }
@@ -80,7 +80,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function get(string $key) : MultiRedisInterface
+    public function get(string $key): MultiRedisInterface
     {
         $this->redis->get($key);
 
@@ -90,7 +90,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function del(string $key) : MultiRedisInterface
+    public function del(string $key): MultiRedisInterface
     {
         $this->redis->del($key);
 
@@ -100,7 +100,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function has(string $key) : MultiRedisInterface
+    public function has(string $key): MultiRedisInterface
     {
         $this->redis->has($key);
 
@@ -110,7 +110,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function ttl(string $key) : MultiRedisInterface
+    public function ttl(string $key): MultiRedisInterface
     {
         $this->redis->ttl($key);
 
@@ -120,7 +120,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function expire(string $key, int $ttl) : MultiRedisInterface
+    public function expire(string $key, int $ttl): MultiRedisInterface
     {
         $this->redis->expire($key, $ttl);
 
@@ -130,7 +130,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function pSet(string $key, $value) : MultiRedisInterface
+    public function pSet(string $key, $value): MultiRedisInterface
     {
         $this->redis->pSet($key, $value);
 
@@ -140,7 +140,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function add(string $key, $value, int $ttl) : MultiRedisInterface
+    public function add(string $key, $value, int $ttl): MultiRedisInterface
     {
         $this
             ->setNx($key, $value)
@@ -152,7 +152,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zAddMod(string $key, string $mode, int $score, $value) : MultiRedisInterface
+    public function zAddMod(string $key, string $mode, int $score, $value): MultiRedisInterface
     {
         $this->redis->zAddMod($key, $mode, $score, $value);
 
@@ -172,7 +172,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zAdd(string $key, int $score, $value) : MultiRedisInterface
+    public function zAdd(string $key, int $score, $value): MultiRedisInterface
     {
         $this->redis->zAdd($key, $score, $value);
 
@@ -182,7 +182,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zDelete(string $key, string $member) : MultiRedisInterface
+    public function zDelete(string $key, string $member): MultiRedisInterface
     {
         $this->redis->zDelete($key, $member);
 
@@ -192,7 +192,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zDeleteRangeByScore(string $key, int $fromScore, int $toScore) : MultiRedisInterface
+    public function zDeleteRangeByScore(string $key, string $fromScore, string $toScore): MultiRedisInterface
     {
         $this->zRemRangeByScore($key, $fromScore, $toScore);
 
@@ -202,7 +202,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRemRangeByScore(string $key, int $fromScore, int $toScore) : MultiRedisInterface
+    public function zRemRangeByScore(string $key, string $fromScore, string $toScore): MultiRedisInterface
     {
         $this->redis->zRemRangeByScore($key, $fromScore, $toScore);
 
@@ -212,7 +212,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRemRangeByRank(string $key, int $start, int $stop) : MultiRedisInterface
+    public function zRemRangeByRank(string $key, int $start, int $stop): MultiRedisInterface
     {
         $this->redis->zRemRangeByRank($key, $start, $stop);
 
@@ -224,11 +224,10 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
      */
     public function zRevRangeByScore(
         string $key,
-        int $fromScore,
-        int $toScore,
+        string $fromScore,
+        string $toScore,
         array $options = []
-    ) : MultiRedisInterface
-    {
+    ): MultiRedisInterface {
         $this->redis->zRevRangeByScore($key, $fromScore, $toScore, $options);
 
         return $this;
@@ -239,12 +238,11 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
      */
     public function zRevRangeByScoreLimit(
         string $key,
-        int $fromScore,
-        int $toScore,
+        string $fromScore,
+        string $toScore,
         int $offset,
         int $count
-    ) : MultiRedisInterface
-    {
+    ): MultiRedisInterface {
         return $this->zRevRangeByScore(
             $key,
             $fromScore,
@@ -259,8 +257,12 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRangeByScore(string $key, int $fromScore, int $toScore, array $options = []) : MultiRedisInterface
-    {
+    public function zRangeByScore(
+        string $key,
+        string $fromScore,
+        string $toScore,
+        array $options = []
+    ): MultiRedisInterface {
         $this->redis->zRangeByScore($key, $fromScore, $toScore, $options);
 
         return $this;
@@ -269,7 +271,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zCard(string $key) : MultiRedisInterface
+    public function zCard(string $key): MultiRedisInterface
     {
         $this->redis->zCard($key);
 
@@ -279,7 +281,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRank(string $key, string $member) : MultiRedisInterface
+    public function zRank(string $key, string $member): MultiRedisInterface
     {
         $this->redis->zRank($key, $member);
 
@@ -289,7 +291,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRank(string $key, string $member) : MultiRedisInterface
+    public function zRevRank(string $key, string $member): MultiRedisInterface
     {
         $this->redis->zRevRank($key, $member);
 
@@ -299,7 +301,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zCount(string $key, int $fromScore, int $toScore) : MultiRedisInterface
+    public function zCount(string $key, string $fromScore, string $toScore): MultiRedisInterface
     {
         $this->redis->zCount($key, $fromScore, $toScore);
 
@@ -309,7 +311,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zIncrBy(string $key, float $score, string $member) : MultiRedisInterface
+    public function zIncrBy(string $key, float $score, string $member): MultiRedisInterface
     {
         $this->redis->zIncrBy($key, $score, $member);
 
@@ -319,7 +321,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zScore(string $key, string $member) : MultiRedisInterface
+    public function zScore(string $key, string $member): MultiRedisInterface
     {
         $this->redis->zScore($key, $member);
 
@@ -329,7 +331,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRange(string $key, int $from, int $to) : MultiRedisInterface
+    public function zRange(string $key, int $from, int $to): MultiRedisInterface
     {
         $this->redis->zRange($key, $from, $to);
 
@@ -339,7 +341,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRange(string $key, int $from, int $to) : MultiRedisInterface
+    public function zRevRange(string $key, int $from, int $to): MultiRedisInterface
     {
         $this->redis->zRevRange($key, $from, $to);
 
@@ -349,7 +351,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRangeWithScores(string $key, int $from, int $to) : MultiRedisInterface
+    public function zRevRangeWithScores(string $key, int $from, int $to): MultiRedisInterface
     {
         $this->redis->zRevRangeWithScores($key, $from, $to);
 
@@ -359,7 +361,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sAdd(string $key, string $member) : MultiRedisInterface
+    public function sAdd(string $key, string $member): MultiRedisInterface
     {
         $this->redis->sAdd($key, $member);
 
@@ -369,7 +371,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sCard(string $key) : MultiRedisInterface
+    public function sCard(string $key): MultiRedisInterface
     {
         $this->redis->sCard($key);
 
@@ -379,7 +381,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sDiff(array $keys) : MultiRedisInterface
+    public function sDiff(array $keys): MultiRedisInterface
     {
         $this->redis->sDiff($keys);
 
@@ -389,7 +391,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sInter(array $keys) : MultiRedisInterface
+    public function sInter(array $keys): MultiRedisInterface
     {
         $this->redis->sInter($keys);
 
@@ -409,7 +411,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sUnion(array $keys) : MultiRedisInterface
+    public function sUnion(array $keys): MultiRedisInterface
     {
         $this->redis->sUnion($keys);
 
@@ -430,7 +432,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sIsMember(string $key, string $member) : MultiRedisInterface
+    public function sIsMember(string $key, string $member): MultiRedisInterface
     {
         $this->redis->sIsMember($key, $member);
 
@@ -440,7 +442,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sMembers(string $key) : MultiRedisInterface
+    public function sMembers(string $key): MultiRedisInterface
     {
         $this->redis->sMembers($key);
 
@@ -450,7 +452,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function sRem(string $key, string $member) : MultiRedisInterface
+    public function sRem(string $key, string $member): MultiRedisInterface
     {
         $this->redis->sRem($key, $member);
 
@@ -490,7 +492,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function append(string $key, string $value) : MultiRedisInterface
+    public function append(string $key, string $value): MultiRedisInterface
     {
         $this->redis->append($key, $value);
 
@@ -500,7 +502,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function decr(string $key) : MultiRedisInterface
+    public function decr(string $key): MultiRedisInterface
     {
         $this->redis->decr($key);
 
@@ -510,7 +512,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function decrBy(string $key, int $value) : MultiRedisInterface
+    public function decrBy(string $key, int $value): MultiRedisInterface
     {
         $this->redis->decrBy($key, $value);
 
@@ -520,7 +522,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function getRange(string $key, int $from, int $to) : MultiRedisInterface
+    public function getRange(string $key, int $from, int $to): MultiRedisInterface
     {
         $this->redis->getRange($key, $from, $to);
 
@@ -530,7 +532,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function incr(string $key) : MultiRedisInterface
+    public function incr(string $key): MultiRedisInterface
     {
         $this->redis->incr($key);
 
@@ -540,7 +542,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function incrBy(string $key, int $value) : MultiRedisInterface
+    public function incrBy(string $key, int $value): MultiRedisInterface
     {
         $this->redis->incrBy($key, $value);
 
@@ -550,7 +552,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function mGet(array $keys) : MultiRedisInterface
+    public function mGet(array $keys): MultiRedisInterface
     {
         $this->redis->mGet($keys);
 
@@ -560,7 +562,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function mSet(array $keysAndValues) : MultiRedisInterface
+    public function mSet(array $keysAndValues): MultiRedisInterface
     {
         $this->redis->mSet($keysAndValues);
 
@@ -570,7 +572,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function setEx(string $key, $value, int $ttl) : MultiRedisInterface
+    public function setEx(string $key, $value, int $ttl): MultiRedisInterface
     {
         $this->redis->setEx($key, $value, $ttl);
 
@@ -580,7 +582,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function setNx(string $key, $value) : MultiRedisInterface
+    public function setNx(string $key, $value): MultiRedisInterface
     {
         $this->redis->setNx($key, $value);
 
@@ -590,7 +592,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function exec() : array
+    public function exec(): array
     {
         $currentLevel = $this->decreaseLevel();
 
@@ -608,7 +610,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function rename(string $oldName, string $newName) : MultiRedisInterface
+    public function rename(string $oldName, string $newName): MultiRedisInterface
     {
         $this->redis->rename($oldName, $newName);
 
@@ -618,7 +620,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hDel(string $key, string $field) : MultiRedisInterface
+    public function hDel(string $key, string $field): MultiRedisInterface
     {
         $this->redis->hDel($key, $field);
 
@@ -628,7 +630,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hGet(string $key, string $field) : MultiRedisInterface
+    public function hGet(string $key, string $field): MultiRedisInterface
     {
         $this->redis->hGet($key, $field);
 
@@ -638,7 +640,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hGetAll(string $key) : MultiRedisInterface
+    public function hGetAll(string $key): MultiRedisInterface
     {
         $this->redis->hGetAll($key);
 
@@ -648,7 +650,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hSetAll(string $key, array $keysAndValues) : MultiRedisInterface
+    public function hSetAll(string $key, array $keysAndValues): MultiRedisInterface
     {
         $this->redis->hSetAll($key, $keysAndValues);
 
@@ -658,7 +660,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hSet(string $key, string $field, $value) : MultiRedisInterface
+    public function hSet(string $key, string $field, $value): MultiRedisInterface
     {
         $this->redis->hSet($key, $field, $value);
 
@@ -668,7 +670,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hSetNx(string $key, string $field, $value) : MultiRedisInterface
+    public function hSetNx(string $key, string $field, $value): MultiRedisInterface
     {
         $this->redis->hSetNx($key, $field, $value);
 
@@ -678,7 +680,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hExists(string $key, string $field) : MultiRedisInterface
+    public function hExists(string $key, string $field): MultiRedisInterface
     {
         $this->redis->hExists($key, $field);
 
@@ -688,7 +690,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hIncrBy(string $key, string $field, int $value) : MultiRedisInterface
+    public function hIncrBy(string $key, string $field, int $value): MultiRedisInterface
     {
         $this->redis->hIncrBy($key, $field, $value);
 
@@ -698,7 +700,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hIncrByFloat(string $key, string $field, float $floatValue) : MultiRedisInterface
+    public function hIncrByFloat(string $key, string $field, float $floatValue): MultiRedisInterface
     {
         $this->redis->hIncrByFloat($key, $field, $floatValue);
 
@@ -708,7 +710,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function hVals(string $key) : MultiRedisInterface
+    public function hVals(string $key): MultiRedisInterface
     {
         $this->redis->hVals($key);
 
@@ -718,7 +720,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lIndex(string $key, int $index) : MultiRedisInterface
+    public function lIndex(string $key, int $index): MultiRedisInterface
     {
         $this->redis->lIndex($key, $index);
 
@@ -728,7 +730,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lInsert(string $key, int $index, string $pivot, $value) : MultiRedisInterface
+    public function lInsert(string $key, int $index, string $pivot, $value): MultiRedisInterface
     {
         $this->redis->lInsert($key, $index, $pivot, $value);
 
@@ -738,7 +740,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lLen(string $key) : MultiRedisInterface
+    public function lLen(string $key): MultiRedisInterface
     {
         $this->redis->lLen($key);
 
@@ -748,7 +750,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lPop(string $key) : MultiRedisInterface
+    public function lPop(string $key): MultiRedisInterface
     {
         $this->redis->lPop($key);
 
@@ -758,7 +760,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lPush(string $key, $value) : MultiRedisInterface
+    public function lPush(string $key, $value): MultiRedisInterface
     {
         $this->redis->lPush($key, $value);
 
@@ -768,7 +770,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lPushNx(string $key, $value) : MultiRedisInterface
+    public function lPushNx(string $key, $value): MultiRedisInterface
     {
         $this->redis->lPushNx($key, $value);
 
@@ -778,7 +780,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lRange(string $key, int $start, int $stop) : MultiRedisInterface
+    public function lRange(string $key, int $start, int $stop): MultiRedisInterface
     {
         $this->redis->lRange($key, $start, $stop);
 
@@ -788,7 +790,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lRem(string $key, $reference, int $count) : MultiRedisInterface
+    public function lRem(string $key, $reference, int $count): MultiRedisInterface
     {
         $this->redis->lRem($key, $reference, $count);
 
@@ -798,7 +800,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lSet(string $key, int $index, $value) : MultiRedisInterface
+    public function lSet(string $key, int $index, $value): MultiRedisInterface
     {
         $this->redis->lSet($key, $index, $value);
 
@@ -808,7 +810,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function lTrim(string $key, int $start, int $stop) : MultiRedisInterface
+    public function lTrim(string $key, int $start, int $stop): MultiRedisInterface
     {
         $this->redis->lTrim($key, $start, $stop);
 
@@ -818,7 +820,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function rPop(string $key) : MultiRedisInterface
+    public function rPop(string $key): MultiRedisInterface
     {
         $this->redis->rPop($key);
 
@@ -828,7 +830,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function rPush(string $key, $value) : MultiRedisInterface
+    public function rPush(string $key, $value): MultiRedisInterface
     {
         $this->redis->rPush($key, $value);
 
@@ -838,7 +840,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function rPushNx(string $key, $value) : MultiRedisInterface
+    public function rPushNx(string $key, $value): MultiRedisInterface
     {
         $this->redis->rPushNx($key, $value);
 
@@ -848,7 +850,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function watch(string $key) : MultiRedisInterface
+    public function watch(string $key): MultiRedisInterface
     {
         $this->redis->watch($key);
 
@@ -858,7 +860,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function unwatch() : MultiRedisInterface
+    public function unwatch(): MultiRedisInterface
     {
         $this->redis->unwatch();
 
@@ -868,7 +870,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function expireAt(string $key, int $ttl) : MultiRedisInterface
+    public function expireAt(string $key, int $ttl): MultiRedisInterface
     {
         $this->redis->expireAt($key, $ttl);
 
@@ -878,7 +880,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function flush() : MultiRedisInterface
+    public function flush(): MultiRedisInterface
     {
         $this->redis->flush();
 
@@ -888,7 +890,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function info() : MultiRedisInterface
+    public function info(): MultiRedisInterface
     {
         $this->redis->info();
 
@@ -898,7 +900,7 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function runQuery($query, array $bindParams, array $bindTypes = []) : MultiRedisInterface
+    public function runQuery($query, array $bindParams, array $bindTypes = []): MultiRedisInterface
     {
         return $this;
     }
