@@ -52,6 +52,16 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
 
     /**
      * @param string $key
+     * @param string $mode
+     * @param int    $score
+     * @param mixed  $value
+     *
+     * @return bool
+     */
+    public function zAddCond(string $key, string $mode, int $score, $value): bool;
+
+    /**
+     * @param string $key
      * @param int    $score
      * @param mixed  $value
      *
@@ -237,11 +247,27 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
     public function sInter(array $keys): array;
 
     /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return int
+     */
+    public function sInterStore(string $destination, array $keys): int;
+
+    /**
      * @param array $keys
      *
      * @return array
      */
     public function sUnion(array $keys): array;
+
+    /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return int
+     */
+    public function sUnionStore(string $destination, array $keys): int;
 
     /**
      * @param string $key
@@ -560,6 +586,29 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
 
     /**
      * @param string $key
+     * @param        $element
+     *
+     * @return bool
+     */
+    public function pfAdd(string $key, $element): bool;
+
+    /**
+     * @param string $key
+     *
+     * @return int
+     */
+    public function pfCount(string $key): int;
+
+    /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return bool
+     */
+    public function pfMerge(string $destination, array $keys): bool;
+
+    /**
+     * @param string $key
      *
      * @return int
      */
@@ -589,6 +638,11 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      * @return RedisInterface
      */
     public function flush(): RedisInterface;
+
+    /**
+     * @return RedisInterface
+     */
+    public function flushAll(): RedisInterface;
 
     /**
      * @return array
