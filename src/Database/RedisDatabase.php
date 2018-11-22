@@ -71,7 +71,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     {
         $result = $this->getConnection()->exists($key);
 
-        return $this->multi ? true : $result;
+        return $this->multi ? true : !!$result;
     }
 
     /**
