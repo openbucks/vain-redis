@@ -4,25 +4,30 @@ parameters:
 
 services:
   cache.redis:
+    public: true
     parent: database.abstract
     class: Vain\Redis\Database\RedisDatabase
     arguments: ['@connection.redis.cache']
   database.redis:
+    public: true
     parent: database.abstract
     class: Vain\Redis\Database\RedisDatabase
     arguments: ['@connection.redis.database']
   cache.factory.credis:
+    public: true
     class: Vain\Redis\Cache\Factory\CRedisCacheFactory
     arguments: ['credis']
     tags:
       - {name: cache.factory}
   connection.redis.database:
+    public: true
     parent: connection.abstract
     class: Vain\Redis\Connection\CRedisConnection
     arguments: ['%redis.connection.database%']
     tags:
       - {name: connection}
   connection.redis.cache:
+    public: true
     parent: connection.abstract
     class: Vain\Redis\Connection\CRedisConnection
     arguments: ['%redis.connection.cache%']
