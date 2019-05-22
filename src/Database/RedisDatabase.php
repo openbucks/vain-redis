@@ -958,4 +958,12 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     {
         return $this->getConnection()->info();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function exists(string $key): bool
+    {
+        return $this->getConnection()->exists($key) > 0;
+    }
 }

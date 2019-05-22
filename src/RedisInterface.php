@@ -648,4 +648,11 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      * @return array
      */
     public function info(): array;
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function exists(string $key): bool;
 }
