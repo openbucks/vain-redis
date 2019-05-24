@@ -182,6 +182,16 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
+    public function zRem(string $key, string $member): MultiRedisInterface
+    {
+        $this->redis->zRem($key, $member);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function zDelete(string $key, string $member): MultiRedisInterface
     {
         $this->redis->zDelete($key, $member);
@@ -384,6 +394,16 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     public function sDiff(array $keys): MultiRedisInterface
     {
         $this->redis->sDiff($keys);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function sDiffStore(string $destination, array $keys) : MultiRedisInterface
+    {
+        $this->redis->sDiffStore($destination, $keys);
 
         return $this;
     }

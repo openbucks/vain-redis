@@ -71,6 +71,14 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
 
     /**
      * @param string $key
+     * @param mixed  $member
+     *
+     * @return bool
+     */
+    public function zRem(string $key, string $member): bool;
+
+    /**
+     * @param string $key
      *
      * @return int
      */
@@ -238,6 +246,14 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
      * @return array
      */
     public function sDiff(array $keys): array;
+
+    /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return int
+     */
+    public function sDiffStore(string $destination, array $keys): int;
 
     /**
      * @param array $keys

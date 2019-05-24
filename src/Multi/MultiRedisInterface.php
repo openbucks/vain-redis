@@ -149,6 +149,14 @@ interface MultiRedisInterface
      *
      * @return MultiRedisInterface
      */
+    public function zRem(string $key, string $member): MultiRedisInterface;
+
+    /**
+     * @param string $key
+     * @param string $member
+     *
+     * @return MultiRedisInterface
+     */
     public function zDelete(string $key, string $member): MultiRedisInterface;
 
     /**
@@ -281,6 +289,14 @@ interface MultiRedisInterface
      * @return MultiRedisInterface
      */
     public function sDiff(array $keys): MultiRedisInterface;
+
+    /**
+     * @param string $destination
+     * @param array  $keys
+     *
+     * @return int
+     */
+    public function sDiffStore(string $destination, array $keys): MultiRedisInterface;
 
     /**
      * @param array $keys

@@ -189,6 +189,16 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
+    public function zRem(string $key, string $member): bool
+    {
+        $result = $this->getConnection()->zRem($key, $member);
+
+        return $this->multi ? true : (1 === $result);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function zDelete(string $key, string $member): bool
     {
         $result = $this->getConnection()->zDelete($key, $member);
@@ -413,6 +423,16 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
         $result = $this->getConnection()->sDiff(...$keys);
 
         return $this->multi ? [] : $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function sDiffStore(string $destination, array $keys) : int
+    {
+        $result = $this->getConnection()->sDiffStore($destination, ...$keys);
+
+        return $this->multi ? 0 : $result;
     }
 
     /**
