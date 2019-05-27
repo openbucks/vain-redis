@@ -368,9 +368,19 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRange(string $key, int $from, int $to): array
+    public function zUnion(string $key, array $keys, array $weights = null, string $aggregateFunction = 'SUM'): int
     {
-        $result = $this->getConnection()->zRange($key, $from, $to);
+        $result = $this->getConnection()->zUnion($key, $keys, $weights, $aggregateFunction);
+
+        return $this->multi ? 0 : $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function zRange(string $key, int $from, int $to, bool $withScores = false): array
+    {
+        $result = $this->getConnection()->zRange($key, $from, $to, $withScores);
 
         return $this->multi ? [] : $result;
     }
@@ -378,9 +388,9 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRange(string $key, int $from, int $to): array
+    public function zRevRange(string $key, int $from, int $to, bool $withScores = false): array
     {
-        $result = $this->getConnection()->zRevRange($key, $from, $to);
+        $result = $this->getConnection()->zRevRange($key, $from, $to, $withScores);
 
         return $this->multi ? [] : $result;
     }

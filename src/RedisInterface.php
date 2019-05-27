@@ -163,21 +163,33 @@ interface RedisInterface extends CacheInterface, DatabaseInterface
 
     /**
      * @param string $key
-     * @param int    $from
-     * @param int    $to
+     * @param array  $keys
+     * @param array  $weights
+     * @param string $aggregateFunction
      *
-     * @return array
+     * @return int
      */
-    public function zRange(string $key, int $from, int $to): array;
+    public function zUnion(string $key, array $keys, array $weights = null, string $aggregateFunction = 'SUM'): int;
 
     /**
      * @param string $key
      * @param int    $from
      * @param int    $to
+     * @param bool   $withScores
      *
      * @return array
      */
-    public function zRevRange(string $key, int $from, int $to): array;
+    public function zRange(string $key, int $from, int $to, bool $withScores = false): array;
+
+    /**
+     * @param string $key
+     * @param int    $from
+     * @param int    $to
+     * @param bool   $withScores
+     *
+     * @return array
+     */
+    public function zRevRange(string $key, int $from, int $to, bool $withScores = false): array;
 
     /**
      * @param string $key

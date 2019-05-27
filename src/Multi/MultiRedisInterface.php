@@ -196,30 +196,33 @@ interface MultiRedisInterface
 
     /**
      * @param string $key
-     * @param int    $from
-     * @param int    $to
+     * @param array  $keys
+     * @param array  $weights
+     * @param string $aggregateFunction
      *
      * @return MultiRedisInterface
      */
-    public function zRange(string $key, int $from, int $to): MultiRedisInterface;
+    public function zUnion(string $key, array $keys, array $weights = null, string $aggregateFunction = 'SUM'): MultiRedisInterface;
 
     /**
      * @param string $key
      * @param int    $from
      * @param int    $to
+     * @param bool   $withScores
      *
      * @return MultiRedisInterface
      */
-    public function zRevRange(string $key, int $from, int $to): MultiRedisInterface;
+    public function zRange(string $key, int $from, int $to, bool $withScores = false): MultiRedisInterface;
 
     /**
      * @param string $key
      * @param int    $from
      * @param int    $to
+     * @param bool   $withScores
      *
      * @return MultiRedisInterface
      */
-    public function zRevRangeWithScores(string $key, int $from, int $to): MultiRedisInterface;
+    public function zRevRange(string $key, int $from, int $to, bool $withScores = false): MultiRedisInterface;
 
     /**
      * @param string $key

@@ -341,9 +341,9 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRange(string $key, int $from, int $to): MultiRedisInterface
+    public function zUnion(string $key, array $keys, array $weights = null, string $aggregateFunction = 'SUM'): MultiRedisInterface
     {
-        $this->redis->zRange($key, $from, $to);
+        $this->redis->zUnion($key, $keys, $weights, $aggregateFunction);
 
         return $this;
     }
@@ -351,9 +351,19 @@ abstract class AbstractMultiRedis implements MultiRedisInterface
     /**
      * @inheritDoc
      */
-    public function zRevRange(string $key, int $from, int $to): MultiRedisInterface
+    public function zRange(string $key, int $from, int $to, bool $withScores = false): MultiRedisInterface
     {
-        $this->redis->zRevRange($key, $from, $to);
+        $this->redis->zRange($key, $from, $to, $withScores);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function zRevRange(string $key, int $from, int $to, bool $withScores = false): MultiRedisInterface
+    {
+        $this->redis->zRevRange($key, $from, $to, $withScores);
 
         return $this;
     }
