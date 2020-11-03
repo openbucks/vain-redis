@@ -201,7 +201,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
      */
     public function zDelete(string $key, string $member): bool
     {
-        $result = $this->getConnection()->zDelete($key, $member);
+        $result = $this->getConnection()->zRem($key, $member);
 
         return $this->multi ? true : (1 === $result);
     }
@@ -370,7 +370,7 @@ class RedisDatabase extends AbstractDatabase implements RedisInterface
      */
     public function zUnion(string $key, array $keys, array $weights = null, string $aggregateFunction = 'SUM'): int
     {
-        $result = $this->getConnection()->zUnion($key, $keys, $weights, $aggregateFunction);
+        $result = $this->getConnection()->zunionstore($key, $keys, $weights, $aggregateFunction);
 
         return $this->multi ? 0 : $result;
     }
